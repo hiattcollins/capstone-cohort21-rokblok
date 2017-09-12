@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>RokBlok</title>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+	    <link rel="stylesheet" href="css/main.css">
+	</head>
+	<body ng-app="rokblok">
+
+		<script>
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId            : '1953614151581872',
+		      autoLogAppEvents : true,
+		      xfbml            : true,
+		      version          : 'v2.10'
+		    });
+		    FB.AppEvents.logPageView();
+		  };
+
+		  (function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "//connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+		</script>
+
+
+		<div>
+			 <div ng-include="'partials/navbar.html'"></div>
+		</div>
+		<div>
+		  	<div class="container">
+				<!-- <div ng-include="'partials/action-buttons.html'"></div> -->
+
+				<div ng-view></div>
+
+				<!-- <div class="row">
+					<a data-pin-do="embedUser" data-pin-board-width="1500" data-pin-scale-height="1500" data-pin-scale-width="200" href="https://www.pinterest.com/mtallentbdesign/"></a>
+				</div>
+				<div ng-include="'partials/add-pin.html'"></div>
+
+				<div ng-include="'partials/add-board.html'"></div>
+ -->
+
+
+
+
+				<!-- <div class="row">
+					<div ng-controller="addPinCtrl">
+						<button type="button" id="addPin" class="waves-effect waves-light red btn" ng-click="createPin()">Add Pin</button>
+					</div>
+					<div ng-controller="addBoardCtrl">
+						<button type="button" id="addBoard" class="waves-effect waves-light red btn" ng-click="createBoard()">Add Board</button>
+					</div>
+				</div> -->
+			</div>
+		</div>
+        
+
+
+
+
+
+		<!-- CDN links -->
+		<script type="text/javascript" src="./lib/node_modules/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="./lib/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./lib/node_modules/angular/angular.min.js"></script>
+		<script type="text/javascript" src="./lib/node_modules/angular-route/angular-route.min.js"></script>
+		<script type="text/javascript" src="./lib/node_modules/firebase/firebase.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		<!-- <script async defer src="//assets.pinterest.com/js/pinit.js"></script> -->
+
+
+		<!-- App.js file and credentials -->
+		<script type="text/javascript" src="app/app.js"></script>
+		<script type="text/javascript" src="app/values/facebook-creds.js"></script>
+		<script type="text/javascript" src="app/values/firebase-creds.js"></script>
+
+		<!-- Factories -->
+		<!-- <script type="text/javascript" src="./app/factories/factory-boards.js"></script> -->
+		<!-- <script type="text/javascript" src="./app/factories/factory-filter.js"></script> -->
+		<!-- <script type="text/javascript" src="./app/factories/factory-pins.js"></script> -->
+		<script type="text/javascript" src="./app/factories/factory-user.js"></script>
+	    
+		<!-- Controllers -->
+		<!-- <script type="text/javascript" src="./app/controllers/control-add-board.js"></script> -->
+<!-- 		<script type="text/javascript" src="./app/controllers/control-add-pin.js"></script>
+		<script type="text/javascript" src="./app/controllers/control-delete-board.js"></script>
+		<script type="text/javascript" src="./app/controllers/control-delete-pin.js"></script>
+		<script type="text/javascript" src="./app/controllers/control-edit-board.js"></script> -->
+		<!-- <script type="text/javascript" src="./app/controllers/control-edit-pin.js"></script> -->
+		<script type="text/javascript" src="./app/controllers/control-navbar.js"></script>
+		<!-- <script type="text/javascript" src="./app/controllers/control-show-all-boards.js"></script> -->
+		<!-- <script type="text/javascript" src="./app/controllers/control-show-single-board.js"></script> -->
+		<script type="text/javascript" src="./app/controllers/control-user.js"></script>
+	    
+	</body>
+</html>
