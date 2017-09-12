@@ -32,4 +32,50 @@ app.config(($routeProvider, $httpProvider)=> {
 // It is executed after all of the service have been configured and the injector has been created
 // here we are just initializing our app with firebase, passing 'FRCreds', a constant registered in app/fb-creds.js
 // which contains the databaseURL, apiKey, and authDomain need to interact with the app
+
 app.run(($location, FirebaseCreds)=> firebase.initializeApp(FirebaseCreds));
+
+
+// ****** ****** //
+// app.run(['$rootScope', '$window', 'srvAuth', function($rootScope, $window, sAuth) {
+
+// 		$rootScope.user = {};
+
+// 		$window.fbAsyncInit = function() {
+// 		    FB.init({
+// 		      appId         	: '1953614151581872',
+// 		      status			: true,
+// 		      cookie		 	: true,
+// 		      xfbml            	: true,
+// 		      version          	: 'v2.10'
+// 		    });
+// 		    sAuth.watchAuthenticationStatusChange();
+// 		};
+
+// 		  (function(d, s, id){
+// 		     var js, fjs = d.getElementsByTagName(s)[0];
+// 		     if (d.getElementById(id)) {return;}
+// 		     js = d.createElement(s); 
+// 		     js.id = id;
+// 		     js.async = true;
+// 		     js.src = "//connect.facebook.net/en_US/sdk.js";
+// 		     fjs.parentNode.insertBefore(js, fjs);
+// 		   }(document, 'script', 'facebook-jssdk'));
+
+// }]);
+
+// app.run(($location, FirebaseCreds) => {
+// 	let creds = FBCreds;
+// 	let authConfig = {
+// 		apiKey: creds.apiKey,
+// 		authDomain: creds.authDomain,
+// 		databaseURL: creds.databaseURL
+// 	};
+
+// 	firebase.initializeApp(authConfig);
+// });
+
+
+// app.run(function($rootScope) {
+// 	$rootScope.showSearch = false;
+// });

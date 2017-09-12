@@ -20,21 +20,21 @@ app.factory("userFactory", function ($q, $http, $window) {
     };
 
     const getAccessToken = function() {
-        return $http.post(`https://api.pinterest.com/v1/oauth/token?grant_type=authorization_code&client_id=${PINCreds.client_id}&client_secret=${PINCreds.client_secret}&code=${authCode}`)
-        .then((authCode) => {
-            console.log('Permanent Access Token:', authCode.data.access_token);
-            token = authCode.data.access_token;
-            // $window.location = `https://api.pinterest.com/v1/me/boards/?access_token${data.data.access_token}=&fields=id%2Cname%2Curl`;
-            // resolve(token);
-            return token;
-        })
-        .catch((error) => {
-            console.log("Request Error:", error);
-        })
-        .then((token) => {
-            console.log("THE TOKEN:", token);
-            token = token;
-        });
+    //     return $http.post(`https://api.pinterest.com/v1/oauth/token?grant_type=authorization_code&client_id=${PINCreds.client_id}&client_secret=${PINCreds.client_secret}&code=${authCode}`)
+    //     .then((authCode) => {
+    //         console.log('Permanent Access Token:', authCode.data.access_token);
+    //         token = authCode.data.access_token;
+    //         // $window.location = `https://api.pinterest.com/v1/me/boards/?access_token${data.data.access_token}=&fields=id%2Cname%2Curl`;
+    //         // resolve(token);
+    //         return token;
+    //     })
+    //     .catch((error) => {
+    //         console.log("Request Error:", error);
+    //     })
+    //     .then((token) => {
+    //         console.log("THE TOKEN:", token);
+    //         token = token;
+    //     });
     };
 
     const getMyToken = function() {

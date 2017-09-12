@@ -2,7 +2,7 @@
 
 
 // ****** Data service specified by facebook ****** //
-app.factory("facebookService", function($q, $http, $window) {
+app.factory("facebookService", function($q, $http, $window, FB) {
     return {
         getMyLastName: function() {
             var deferred = $q.defer();
@@ -17,16 +17,7 @@ app.factory("facebookService", function($q, $http, $window) {
             });
             return deferred.promise;
         }
-    }
+    }; 
 });
 
 
-// to use:
-
-// $scope.getMyLastName = function() {
-//    facebookService.getMyLastName() 
-//      .then(function(response) {
-//        $scope.last_name = response.last_name;
-//      }
-//    );
-// };
