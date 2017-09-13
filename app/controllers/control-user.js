@@ -1,5 +1,7 @@
 "use strict";
 
+
+console.log("control-user.js");
 /*
     this controller is instantiated when the 'user.html' template
     is rendered at the '/login' path.
@@ -7,7 +9,22 @@
 
  */
 
-app.controller("userCtrl", function($scope, $window, $location, $q, $http, userFactory){
+app.controller("userCtrl", function($scope, $window, $location, $q, $http, userFactory, ezfb){
+
+    // console.log("userCtrl activated");
+
+
+    // ezfb.getLoginStatus(function (res) {
+
+    // console.log("res", res);    
+    // // $scope.loginStatus = res;
+    // });
+
+    // ezfb.getLoginStatus();
+
+
+    
+
 
     // const authCode = userFactory.getAuthCode();
     // const authToken = userFactory.getAccessToken();
