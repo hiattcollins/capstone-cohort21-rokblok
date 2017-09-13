@@ -1,6 +1,51 @@
 "use strict";
 
-app.controller("navbarCtrl", function($scope, $window, $location, $q, $http, userFactory){
+app.controller("navbarCtrl", function($scope, $window, $location, $q, $http, userFactory, ezfb){
+
+
+
+    console.log("navbarCtrl activated");
+
+    $scope.loginClicked = function () {
+
+        userFactory.doLogIn();
+    };
+
+
+    $scope.statCheck = function () {
+
+        console.log("statCheck activated");
+
+        userFactory.factoryCheckStatus();
+        
+        // ezfb.getLoginStatus(function (res) {
+
+        // console.log("res", res);    
+        // // $scope.loginStatus = res;
+        // });
+
+    };
+
+    // ezfb.getLoginStatus();
+
+    // ezfb.login(function (res) {
+
+    //     console.log("res login", res);
+    // });
+
+    // ezfb.login();
+
+   // to use:
+
+// $scope.getMyLastName = function() {
+//    facebookService.getMyLastName() 
+//      .then(function(response) {
+//        $scope.last_name = response.last_name;
+//      }
+//    );
+// };
+
+// console.log("tester:", $scope.getMyLastName());
 
     // const authCode = userFactory.getAuthCode();
     // const authToken = userFactory.getAccessToken();

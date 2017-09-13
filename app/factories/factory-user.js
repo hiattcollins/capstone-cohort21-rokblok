@@ -1,7 +1,42 @@
 "use strict";
 
 
-app.factory("userFactory", function ($q, $http, $window) {
+app.factory("userFactory", function ($q, $http, $window, ezfb) {
+
+    let loginReturn = {};
+
+
+    const doLogIn = function () {
+
+        ezfb.login(function (res) {
+
+        console.log("res login", res);
+
+        loginReturn = res;
+
+        }, {scope: 'user_likes'});
+
+    };
+
+
+    const factoryCheckStatus = function() {
+
+        ezfb.getLoginStatus(function (res) {
+
+        console.log("res in factoryCheckStatus", res);    
+        loginReturn = res;
+
+        console.log("loginReturn in factory:", loginReturn);
+
+        });
+
+    };
+
+    const getLoginReturn = function() {
+        console.log("loginReturn in getLoginReturn:", loginReturn);
+        return loginReturn;
+    };
+
 
     var authCode;
     var token;
@@ -60,6 +95,6 @@ app.factory("userFactory", function ($q, $http, $window) {
 
     // };
 
-    return { checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut };
+    return { checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn };
 });
 
