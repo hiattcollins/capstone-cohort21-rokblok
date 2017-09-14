@@ -22,8 +22,12 @@ const app = angular.module("rokblok", ["ngRoute", "ezfb"]);
 app.config(($routeProvider, $httpProvider)=> {
     $routeProvider
     .when('/', {
-	    templateUrl: 'partials/show-events.html',
-	    // controller: 'userCtrl'
+	    // templateUrl: 'partials/show-events.html',
+	    // controller: 'eventRetrieveCtrl'
+    })
+    .when('/shows', {
+        templateUrl: 'partials/show-events.html',
+        controller: 'eventShowCtrl'
     })
     .otherwise('/');
 });

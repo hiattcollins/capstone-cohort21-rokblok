@@ -3,6 +3,8 @@
 
 app.factory("eventFactory", function ($q, $http, $window, ezfb) {
 
+    let arrayOfIndividualEvents = [];
+
     const getLikes = function(userID, token) {
 
         console.log("userID:", userID, "token:", token);
@@ -10,99 +12,207 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
         let cursor;
         let likesArray = [];
         let counter = 0;
-        let cutoffDate = "2017-09-10";
+        let cutoffDate = "2018-09-10";
 
-        var initialCall = function() {
+    // const getAllTasks = function(user){
+    //     let tasks = [];
+    //     console.log("url is", `${FBCreds.databaseURL}/items.json?orderBy="uid"&equalTo="${user}"`);
+    //     return $q((resolve, reject) => {
+    //         $http.get(`${FBCreds.databaseURL}/items.json?orderBy="uid"&equalTo="${user}"`)
+    //         .then((itemObject) => {
+    //             let itemCollection = itemObject.data;
+    //             console.log("itemCollection", itemCollection);
+    //             Object.keys(itemCollection).forEach((key) => {
+    //                 itemCollection[key].id = key;
+    //                 tasks.push(itemCollection[key]);
+    //             });
+    //             resolve(tasks);
+    //         })
+    //         .catch((error) => {
+    //             reject(error);
+    //         });
+    //     });
+    // };
 
-            ezfb.api('/me/likes', {fields: `name,about,category,events.since(${cutoffDate})`})
-            .then(function(callResults) {
 
-                // console.log("print this after initialCall call, cursor:", cursor);
-                console.log("here's *callResults* after initialCall:", callResults);
-
-                if (callResults.data[0]) {
-
-                    console.log("data of results has content");
-                    cursor = callResults.paging.cursors.after;
-                    console.log("print this after initialCall call, cursor:", cursor);
-
-                    angular.forEach(callResults.data, function(value, key) {
-                        likesArray.push(value);
-                    });
-
-                    console.log("likesArray:", likesArray);
-
-                    nextPage1();  // ***********  disconnected for testing
-                    // parseEvents(likesArray);
-
-                } else {
-                    console.log("data of results is undefined or not present");
-                    parseEvents(likesArray); // ***********  disconnected for testing
-                }
-
-            
-
-            });
-        };
 
         var nextPage1 = function() {
+            return $q((resolve, reject) => {
+                ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`})
+                .then(function(callResults) {
+                    // console.log("print this in .then after nextPage1 call, cursor:", cursor);
+                    console.log("here's *callResults* after nextPage1:", callResults);
 
-            ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`})
-            .then(function(callResults) {
-                // console.log("print this in .then after nextPage1 call, cursor:", cursor);
-                console.log("here's *callResults* after nextPage1:", callResults);
+                    if (callResults.data[0]) {
+                        console.log("data of results has content");
+                        cursor = callResults.paging.cursors.after;
+                        console.log("print this in .then after nextPage1 call, cursor:", cursor);
 
-                if (callResults.data[0]) {
-                    console.log("data of results has content");
-                    cursor = callResults.paging.cursors.after;
-                    console.log("print this in .then after nextPage1 call, cursor:", cursor);
+                        angular.forEach(callResults.data, function(value, key) {
+                            likesArray.push(value);
+                        });
 
-                    angular.forEach(callResults.data, function(value, key) {
-                        likesArray.push(value);
-                    });
+                        console.log("likesArray:", likesArray);
 
-                    console.log("likesArray:", likesArray);
+                        nextPage1();
 
-                    nextPage2();
+                    } else {
+                        console.log("**data of results is undefined or not present");
+                        return(likesArray);
+                    }
+                    
+                    
+                });
+                resolve(likesArray);
 
-                } else {
-                    console.log("data of results is undefined or not present");
-                    parseEvents(likesArray);
-                }
+            });
+        };
+
+        nextPage1()
+        .then((results) => {
+            console.log("results after the nextPage1() .then", results);
+        });
+
+
+
+        // var initialCall = function() {
+
+        //     ezfb.api('/me/likes', {fields: `name,about,category,events.since(${cutoffDate})`})
+        //     .then((callResults) => {
+
+        //         // console.log("print this after initialCall call, cursor:", cursor);
+        //         console.log("here's *callResults* after initialCall:", callResults);
+
+        //         if (callResults.data[0]) {
+
+        //             console.log("data of results has content");
+        //             cursor = callResults.paging.cursors.after;
+        //             console.log("print this after initialCall call, cursor:", cursor);
+
+        //             angular.forEach(callResults.data, function(value, key) {
+        //                 likesArray.push(value);
+        //             });
+
+        //             console.log("likesArrayy:", likesArray);
+
+        //             nextPage1();  // ***********  disconnected for testing
+        //             // parseEvents(likesArray);
+
+        //         } else {
+        //             console.log("data of results is undefined or not present");
+        //             parseEvents(likesArray); // ***********  disconnected for testing
+        //         }
+
+        //     });
+        // };
+
+        // var nextPage1 = function() {
+
+        //     ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`})
+        //     .then(function(callResults) {
+        //         // console.log("print this in .then after nextPage1 call, cursor:", cursor);
+        //         console.log("here's *callResults* after nextPage1:", callResults);
+
+        //         if (callResults.data[0]) {
+        //             console.log("data of results has content");
+        //             cursor = callResults.paging.cursors.after;
+        //             console.log("print this in .then after nextPage1 call, cursor:", cursor);
+
+        //             angular.forEach(callResults.data, function(value, key) {
+        //                 likesArray.push(value);
+        //             });
+
+        //             console.log("likesArray:", likesArray);
+
+        //             nextPage2();
+
+        //         } else {
+        //             console.log("data of results is undefined or not present");
+        //             parseEvents(likesArray);
+        //         }
 
                 
-            });
+        //     });
 
-        };
+        // };
 
-        var nextPage2 = function() {
-            ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`})
-            .then(function(callResults) {
-                // console.log("print this in .then after nextPage2 call, cursor", cursor);
-                console.log("here's *callResults* after nextPage2:", callResults);
+        // var nextPage2 = function() {
+        //     ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`})
+        //     .then(function(callResults) {
+        //         // console.log("print this in .then after nextPage2 call, cursor", cursor);
+        //         console.log("here's *callResults* after nextPage2:", callResults);
 
-                if (callResults.data[0]) {
-                    console.log("data of results has content");
-                    cursor = callResults.paging.cursors.after;
-                    console.log("print this in .then after nextPage2 call, cursor", cursor);
+        //         if (callResults.data[0]) {
+        //             console.log("data of results has content");
+        //             cursor = callResults.paging.cursors.after;
+        //             console.log("print this in .then after nextPage2 call, cursor", cursor);
 
-                    angular.forEach(callResults.data, function(value, key) {
-                        likesArray.push(value);
-                    });
+        //             angular.forEach(callResults.data, function(value, key) {
+        //                 likesArray.push(value);
+        //             });
 
-                    console.log("likesArray:", likesArray);
+        //             console.log("likesArray:", likesArray);
 
-                    nextPage1();
+        //             nextPage1();
 
-                } else {
-                    console.log("data of results is undefined or not present");
-                    parseEvents(likesArray);
-                }
+        //         } else {
+        //             console.log("data of results is undefined or not present");
+        //             parseEvents(likesArray);
+        //         }
 
-            });
-        };
+        //     });
+        // };
 
-        initialCall();
+        // initialCall();
+        // .then((returnFromInitialCall) => {
+        //     console.log("returnFromInitialCall", returnFromInitialCall);
+        // });
+
+      
+
+
+ // var initialCall = function() {
+
+ //            let resultsArray = [];
+
+ //            return $q((resolve, reject) => {
+ //                ezfb.api('/me/likes', {fields: `name,about,category,events.since(${cutoffDate})`})
+ //                .then((callResults) => {
+
+ //                    // console.log("print this after initialCall call, cursor:", cursor);
+ //                    console.log("here's *callResults* after initialCall:", callResults);
+
+ //                    if (callResults.data[0]) {
+
+ //                        console.log("data of results has content");
+ //                        cursor = callResults.paging.cursors.after;
+ //                        console.log("print this after initialCall call, cursor:", cursor);
+
+ //                        angular.forEach(callResults.data, function(value, key) {
+ //                            resultsArray.push(value);
+ //                        });
+
+ //                        console.log("resultsArray:", resultsArray);
+
+ //                        // nextPage1();  // ***********  disconnected for testing
+ //                        // parseEvents(likesArray);
+
+ //                    } else {
+ //                        console.log("data of results is undefined or not present");
+ //                        // parseEvents(likesArray); // ***********  disconnected for testing
+ //                    }
+
+ //                resolve(resultsArray);
+ //                })
+ //                .catch((error) => {
+ //                    reject(error);
+ //                });
+ //            });
+ //        };
+
+
+
+
 
     }; // ****** END OF GETLIKES ****** //
 
@@ -110,7 +220,7 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
         console.log("fullLikesArray:", fullLikesArray);
 
         let onlyMusicWithEventsArray = [];
-        let arrayOfIndividualEvents = [];
+        
         let eventObject = {
                     band_name: "",
                     event_name: "",
@@ -182,12 +292,12 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
 
         console.log("arrayOfIndividualEvents", arrayOfIndividualEvents);
 
-        
-
-        
-
     };
 
-    return { getLikes, parseEvents };
+    const getIndividualEventsArray = function () {
+        return arrayOfIndividualEvents;
+    };
+
+    return { getLikes, parseEvents, getIndividualEventsArray };
 
 });

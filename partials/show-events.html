@@ -1,0 +1,15 @@
+<div ng-controller="eventRetrieveCtrl">
+	<div>
+		<h3>Shows:</h3>
+	</div>
+
+	<div ng-repeat="item in allEvents">
+		<div>
+			<p>Show:</p>
+			<p>{{item.band_name}}</p>
+			<p>{{item.event_name}}</p>
+			<p>{{item.event_description}}</p>
+			<p>{{item.venue_name}}</p>
+		</div>
+	</div>
+</div>
