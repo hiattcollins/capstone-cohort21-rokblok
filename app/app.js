@@ -19,18 +19,79 @@ const app = angular.module("rokblok", ["ngRoute", "ezfb"]);
 // to be instantiated when the path is requested
 
 
+let isAuth = (userFactory) => new Promise ( (resolve, reject) => {
+  console.log("userFactory is", userFactory);
+  userFactory.isAuthenticated()
+  .then( (userExists) => {
+    if(userExists){
+      console.log("Authenticated, go ahead");
+      resolve();
+    }else {
+      console.log("Authentication reject, GO AWAY");
+      reject();
+    }
+  });
+});
+
+
 app.config(($routeProvider, $httpProvider)=> {
     $routeProvider
     .when('/', {
-	    // templateUrl: 'partials/show-events.html',
-	    // controller: 'eventRetrieveCtrl'
+        templateUrl: 'partials/show-events.html',
+        controller: 'eventShowCtrl',
+        resolve: {isAuth}
+    })
+    .when('/login', {
+        templateUrl: 'partials/login.html',
+        controller: 'userCtrl'
+
     })
     .when('/shows', {
         templateUrl: 'partials/show-events.html',
-        controller: 'eventShowCtrl'
+        controller: 'eventShowCtrl',
+        resolve: {isAuth}
     })
     .otherwise('/');
 });
+
+
+
+// app.config(($routeProvider) => {
+//     $routeProvider
+//     .when('/', {
+//         templateUrl: 'partials/list.html',
+//         controller: 'listCtrl',
+//         resolve: {isAuth}
+//     })
+//     .when('/login', {
+//         templateUrl: 'partials/user.html',
+//         controller: 'userCtrl'
+
+//     })
+//     .when('/task-list', {
+//         templateUrl: 'partials/list.html',
+//         controller: 'listCtrl',
+//         resolve: {isAuth}
+//     })
+//     .when('/item/newItem', {
+//         templateUrl: 'partials/form.html',
+//         controller: 'addTaskCtrl',
+//         resolve: {isAuth}
+//     })
+//     .when('/task/:itemId', {
+//         templateUrl: 'partials/details.html',
+//         controller: 'detailTaskCtrl',
+//         resolve: {isAuth}
+//     })
+//     .when('/task/:itemId/edit', {
+//         templateUrl: 'partials/form.html',
+//         controller: 'editTaskCtrl',
+//         resolve: {isAuth}
+//     })
+//     .otherwise('/');
+// });
+
+
 
 app.config((ezfbProvider, FacebookCreds) => {
 	let fbCreds = FacebookCreds;

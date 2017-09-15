@@ -12,7 +12,7 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
         let cursor;
         let likesArray = [];
         let counter = 0;
-        let cutoffDate = "2018-09-10";
+        let cutoffDate = "2017-09-13";
 
     // const getAllTasks = function(user){
     //     let tasks = [];
@@ -34,14 +34,52 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
     //     });
     // };
 
+    // return $q((resolve, reject) => {
 
+// var runThis = function () {
+
+//     return $q ((resolve, reject) => {
+//         var nextPage1 = function() {
+
+//             ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`}, function(callResults) {
+//                 console.log("here's *callResults* after nextPage1:", callResults);
+
+//                     if (callResults.data[0]) {
+//                         console.log("data of results has content");
+//                         cursor = callResults.paging.cursors.after;
+//                         console.log("print this in .then after nextPage1 call, cursor:", cursor);
+
+//                         angular.forEach(callResults.data, function(value, key) {
+//                             likesArray.push(value);
+//                         });
+
+//                         console.log("likesArray:", likesArray);
+
+//                         nextPage1();
+
+//                     } else {
+//                         console.log("**data of results is undefined or not present");
+//                         // parseEvents(likesArray);
+//                         // resolve();
+//                     }
+
+//             });
+//             // return likesArray;
+//         };
+//     });    
+
+
+// };
+
+// runThis()
+// .then((something) => {
+//     console.log("likesArray", likesArray);
+// });
 
         var nextPage1 = function() {
-            return $q((resolve, reject) => {
-                ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`})
-                .then(function(callResults) {
-                    // console.log("print this in .then after nextPage1 call, cursor:", cursor);
-                    console.log("here's *callResults* after nextPage1:", callResults);
+
+            ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`}, function(callResults) {
+                console.log("here's *callResults* after nextPage1:", callResults);
 
                     if (callResults.data[0]) {
                         console.log("data of results has content");
@@ -58,20 +96,122 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
 
                     } else {
                         console.log("**data of results is undefined or not present");
-                        return(likesArray);
+                        parseEvents(likesArray);
                     }
-                    
-                    
-                });
-                resolve(likesArray);
+                // resolve(likesArray);
 
             });
+            // return likesArray;
         };
 
-        nextPage1()
-        .then((results) => {
-            console.log("results after the nextPage1() .then", results);
-        });
+    // $q.when(nextPage1())
+    // .then((something) => {
+    //     console.log("something", something);
+    //     console.log("likesArray", likesArray);
+    // });
+
+    nextPage1();
+
+    // var testfunction = function () {
+    //     return $q((resolve, reject) => {
+    //         nextPage1()
+    //         .then((returnFromNextPage1) => {
+    //             console.log("returnFromNextPage1 in function", returnFromNextPage1);
+    //             resolve(returnFromNextPage1);
+    //         })
+    //         .catch((error) => {
+    //             reject(error);
+    //         });
+    //     });
+    // };
+
+
+
+    // testfunction()
+    // .then((resultsFromTestfunction) => {
+    //     console.log("resultsFromTestfunction", resultsFromTestfunction);
+    // });
+
+
+        //         .then(function(callResults) {
+        //             // console.log("print this in .then after nextPage1 call, cursor:", cursor);
+        //             console.log("here's *callResults* after nextPage1:", callResults);
+
+        //             if (callResults.data[0]) {
+        //                 console.log("data of results has content");
+        //                 cursor = callResults.paging.cursors.after;
+        //                 console.log("print this in .then after nextPage1 call, cursor:", cursor);
+
+        //                 angular.forEach(callResults.data, function(value, key) {
+        //                     likesArray.push(value);
+        //                 });
+
+        //                 console.log("likesArray:", likesArray);
+
+        //                 nextPage1();
+
+        //             } else {
+        //                 console.log("**data of results is undefined or not present");
+        //                 // parseEvents(likesArray);
+                        
+        //             }
+                    
+                    
+        //         });
+               
+
+        //     });
+        // };
+
+        // nextPage1()
+        // .then((results) => {
+        //     console.log("results after the nextPage1() .then", results);
+        //     console.log("likesArray after the nextPage1() .then", likesArray);
+        //     // parseEvents(results);
+        // });
+
+
+
+// *****************  SINGLE FUNCTION WORKING ... SOMEWHAT
+        // var nextPage1 = function() {
+        //     return $q((resolve, reject) => {
+        //         ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate})`})
+        //         .then(function(callResults) {
+        //             // console.log("print this in .then after nextPage1 call, cursor:", cursor);
+        //             console.log("here's *callResults* after nextPage1:", callResults);
+
+        //             if (callResults.data[0]) {
+        //                 console.log("data of results has content");
+        //                 cursor = callResults.paging.cursors.after;
+        //                 console.log("print this in .then after nextPage1 call, cursor:", cursor);
+
+        //                 angular.forEach(callResults.data, function(value, key) {
+        //                     likesArray.push(value);
+        //                 });
+
+        //                 console.log("likesArray:", likesArray);
+
+        //                 nextPage1();
+
+        //             } else {
+        //                 console.log("**data of results is undefined or not present");
+        //                 parseEvents(likesArray);
+                        
+        //             }
+                    
+                    
+        //         });
+        //         resolve(likesArray);
+
+        //     });
+        // };
+
+        // nextPage1()
+        // .then((results) => {
+        //     console.log("results after the nextPage1() .then", results);
+        //     console.log("likesArray after the nextPage1() .then", likesArray);
+        //     // parseEvents(results);
+        // });
 
 
 
@@ -236,6 +376,11 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
                     zip: "",
                     user_id: ""
                 };
+
+        // console.log("fullLikesArray[0", fullLikesArray.0);
+        // console.log("fullLikesArray.1", fullLikesArray.1);
+        // console.log("fullLikesArray.2", fullLikesArray.2);
+
 
         angular.forEach(fullLikesArray, function (value, key) {
             if (value.category == "Musician/Band" && value.events) {
