@@ -26,6 +26,10 @@ app.controller("eventRetrieveCtrl", function($scope, $window, $location, $q, $ht
 	// 	// 	console.log("pullEventsFromFB results", results);
 	// 	// });
 	// };
+	$scope.checkId = function(eventId) {
+		console.log("eventId", eventId);
+	};
+
 
 	$scope.pullEventsFromFB = function () {
 		console.log("eventFactory.facebookDataDone:", eventFactory.facebookDataDone);

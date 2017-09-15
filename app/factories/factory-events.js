@@ -74,7 +74,8 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
                     state: "",
                     country: "",
                     zip: "",
-                    user_id: ""
+                    user_id: "",
+                    data_id: ""
                 };
 
         // console.log("fullLikesArray[0", fullLikesArray.0);
