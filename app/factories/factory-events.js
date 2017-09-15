@@ -1,10 +1,45 @@
 "use strict";
 
 
-app.factory("eventFactory", function ($q, $http, $window, ezfb) {
+app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
 
     let arrayOfIndividualEvents = [];
     let facebookDataDone = {isdone: false};
+
+
+
+    const saveEvent = function(eventObject) {
+        let objectToSave = angular.toJson(eventObject);
+        console.log("objectToSave", objectToSave);
+        console.log("URL for posting:", `${FirebaseCreds.databaseURL}/events.json`);
+        return $http.post(`${FirebaseCreds.databaseURL}/events.json`, objectToSave)
+        .then((data) => {
+            console.log("data", data);
+            return data;
+        }, (error) => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log("error", errorCode, errorMessage);
+        });
+    };
+
+
+    // const addTask = function(obj){
+    //     let newObj = JSON.stringify(obj);
+    //     return $http.post(`${FBCreds.databaseURL}/items.json`, newObj)
+    //     .then((data) => {
+    //         console.log("data", data);
+    //         return data;
+    //     }, (error) => {
+    //         let errorCode = error.code;
+    //         let errorMessage = error.message;
+    //         console.log("error", errorCode, errorMessage);
+    //     });
+    // };
+
+
+
+
 
     const getLikes = function(userID, token) {
 
@@ -144,6 +179,6 @@ app.factory("eventFactory", function ($q, $http, $window, ezfb) {
         return arrayOfIndividualEvents;
     };
 
-    return { getLikes, parseEvents, getIndividualEventsArray, facebookDataDone };
+    return { saveEvent, getLikes, parseEvents, getIndividualEventsArray, facebookDataDone };
 
 });

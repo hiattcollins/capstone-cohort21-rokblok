@@ -28,6 +28,20 @@ app.controller("eventRetrieveCtrl", function($scope, $window, $location, $q, $ht
 	// };
 	$scope.checkId = function(eventId) {
 		console.log("eventId", eventId);
+
+		function isCorrectObject(element) {
+			if (element.event_id == eventId) {
+			return (element);
+			}
+		}
+
+		let eventsToSearch = eventFactory.getIndividualEventsArray();
+		let foundEvent = eventsToSearch.find(isCorrectObject);
+
+		console.log("foundEvent:", foundEvent);
+
+		// eventFactory.saveEvent(foundEvent);
+
 	};
 
 

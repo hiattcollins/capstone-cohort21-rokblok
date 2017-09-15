@@ -134,7 +134,7 @@ app.run(($location, FirebaseCreds)=> firebase.initializeApp(FirebaseCreds));
 
 
 // app.run(($location, FirebaseCreds) => {
-// 	let creds = FBCreds;
+// 	let creds = FirebaseCreds;
 // 	let authConfig = {
 // 		apiKey: creds.apiKey,
 // 		authDomain: creds.authDomain,
