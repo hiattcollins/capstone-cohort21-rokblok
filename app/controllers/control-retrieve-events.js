@@ -12,20 +12,61 @@ console.log("control-retrieve-events.js");
 app.controller("eventRetrieveCtrl", function($scope, $window, $location, $q, $http, eventFactory, userFactory, ezfb){
 
 
-	$scope.pullEventsFromFB = function() {
+	// $scope.pullEventsFromFB = function() {
 
-		let authItems = userFactory.getLoginReturn();
-		console.log("authItems", authItems);
-		console.log("authItems.authResponse:", authItems.authResponse);
-		console.log("authItems.authResponse.userID:", authItems.authResponse.userID);
-		console.log("authItems.authResponse.accessToken:", authItems.authResponse.accessToken);
+	// 	let authItems = userFactory.getLoginReturn();
+	// 	console.log("authItems", authItems);
+	// 	console.log("authItems.authResponse:", authItems.authResponse);
+	// 	console.log("authItems.authResponse.userID:", authItems.authResponse.userID);
+	// 	console.log("authItems.authResponse.accessToken:", authItems.authResponse.accessToken);
 
-		eventFactory.getLikes(authItems.authResponse.userID, authItems.authResponse.accessToken);
-		// eventFactory.getLikes()
-		// .then((results) => {
-		// 	console.log("pullEventsFromFB results", results);
-		// });
+	// 	eventFactory.getLikes(authItems.authResponse.userID, authItems.authResponse.accessToken);
+	// 	// eventFactory.getLikes()
+	// 	// .then((results) => {
+	// 	// 	console.log("pullEventsFromFB results", results);
+	// 	// });
+	// };
+
+	$scope.pullEventsFromFB = function () {
+		console.log("eventFactory.facebookDataDone:", eventFactory.facebookDataDone);
+		eventFactory.getLikes();
 	};
+
+
+	let counter = 1;
+
+	$scope.$watch(function(){return eventFactory.facebookDataDone;}, function(newValue, oldValue, scope){
+		console.log("newValue:", newValue, "oldValue", oldValue, "scope", scope);
+		console.log("eventFactory.facebookDataDone", eventFactory.facebookDataDone);
+		console.log("counter:", counter);
+		counter++;
+	}, true);
+
+	// $scope.$watch(function(){return eventFactory.facebookDataDone;}, function(newValue, oldValue, scope){
+	// 	console.log("newValue:", newValue, "oldValue", oldValue, "scope", scope);
+	// });
+
+	// $scope.pullEventsFromFB = function () {
+	// 	return $q.when(eventFactory.getLikes())
+	// 	.then((someResults) => {
+	// 		console.log("someResults in pullEventsFromFB:", someResults);
+	// 	});
+	// };
+
+
+// let isAuth = (userFactory) => new Promise ( (resolve, reject) => {
+//   console.log("userFactory is", userFactory);
+//   userFactory.isAuthenticated()
+//   .then( (userExists) => {
+//     if(userExists){
+//       console.log("Authenticated, go ahead");
+//       resolve();
+//     }else {
+//       console.log("Authentication reject, GO AWAY");
+//       reject();
+//     }
+//   });
+// });
 
 
 	// band_name}}</p>

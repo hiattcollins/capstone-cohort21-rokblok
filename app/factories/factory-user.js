@@ -135,14 +135,14 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 var provider = new firebase.auth.FacebookAuthProvider();
 
 
-// firebase.auth().onIdTokenChanged(function(user) {
+firebase.auth().onIdTokenChanged(function(user) {
 
-//     console.log("firebase onIdTokenChanged triggered");
-//   if (user) {
-//     // User is signed in or token was refreshed.
-//      console.log("firebase user:", user);
-//   }
-// });
+    console.log("firebase onIdTokenChanged triggered");
+  if (user) {
+    // User is signed in or token was refreshed.
+     console.log("firebase user:", user);
+  }
+});
 
 // firebase.auth().onAuthStateChanged(function(user) {
 
