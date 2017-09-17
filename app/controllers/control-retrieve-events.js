@@ -40,7 +40,7 @@ app.controller("eventRetrieveCtrl", function($scope, $window, $location, $q, $ht
 
 		console.log("foundEvent:", foundEvent);
 
-		// eventFactory.saveEvent(foundEvent);
+		eventFactory.saveEvent(foundEvent);
 
 	};
 
@@ -58,7 +58,13 @@ app.controller("eventRetrieveCtrl", function($scope, $window, $location, $q, $ht
 		console.log("eventFactory.facebookDataDone", eventFactory.facebookDataDone);
 		console.log("counter:", counter);
 		counter++;
+		indicator();
 	}, true);
+
+	let indicator = function () {
+		// $window.alert("data load is done!");
+		console.log("data load is done");
+	};
 
 	// $scope.$watch(function(){return eventFactory.facebookDataDone;}, function(newValue, oldValue, scope){
 	// 	console.log("newValue:", newValue, "oldValue", oldValue, "scope", scope);
