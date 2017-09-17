@@ -3,6 +3,43 @@
 
 app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
+
+
+    let currentUser = null;
+
+    const isAuthenticated = function (){
+        console.log("userFactory: isAuthenticated");
+        return new Promise ( (resolve, reject) => {
+            ezfb.getLoginStatus(function (res) {
+                console.log("isAuthenticated res:", res);
+                console.log("isAuthenticated res.authResponse:", res.authResponse);
+
+            if (res.authResponse){
+                    // currentUser = user.uid;
+                    // console.log("user", user.uid);
+                    resolve(true);
+                }else {
+                    $window.location.href = "#!/login";
+                    resolve(false);
+                }
+            });
+        });
+    };
+
+
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //   if (user) {
+  //     $scope.isLoggedIn = true;
+  //     console.log("currentUser logged in?", user);
+  //     console.log("logged in t-f", $scope.isLoggedIn );
+  //     $scope.$apply();
+  //   } else {
+  //     $scope.isLoggedIn = false;
+  //     console.log("user logged in?", $scope.isLoggedIn);
+  //     $window.location.href = "#!/login";
+  //   }
+  // });
+
     let loginReturn = {};
 
 
@@ -95,6 +132,66 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
     // };
 
-    return { checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn };
+var provider = new firebase.auth.FacebookAuthProvider();
+
+
+firebase.auth().onIdTokenChanged(function(user) {
+
+    console.log("firebase onIdTokenChanged triggered");
+  if (user) {
+    // User is signed in or token was refreshed.
+     console.log("firebase user:", user);
+  }
+});
+
+// firebase.auth().onAuthStateChanged(function(user) {
+
+//     console.log("firebase onAuthStateChanged triggered");
+
+//   if (user) {
+//     // User is signed in.
+//   }
+// });
+
+// firebase.auth().signInWithPopup(provider).then(function(result) {
+//   // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+//   var token = result.credential.accessToken;
+//   // The signed-in user info.
+//   var user = result.user;
+//   // ...
+// }).catch(function(error) {
+//   // Handle Errors here.
+//   var errorCode = error.code;
+//   var errorMessage = error.message;
+//   // The email of the user's account used.
+//   var email = error.email;
+//   // The firebase.auth.AuthCredential type that was used.
+//   var credential = error.credential;
+//   // ...
+// });
+
+// firebase.auth().getRedirectResult().then(function(result) {
+// if (result.credential) {
+//     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+// var token = result.credential.accessToken;
+//     // ...
+// }
+//   // The signed-in user info.
+// var user = result.user;
+// }).catch(function(error) {
+//   // Handle Errors here.
+// var errorCode = error.code;
+// var errorMessage = error.message;
+//   // The email of the user's account used.
+// var email = error.email;
+//   // The firebase.auth.AuthCredential type that was used.
+// var credential = error.credential;
+//   // ...
+// });
+
+
+
+
+    return { isAuthenticated, checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn };
 });
 

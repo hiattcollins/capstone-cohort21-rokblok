@@ -1,0 +1,43 @@
+<div ng-controller="eventRetrieveCtrl">
+
+	<div>
+		<label for="inputText">Search by Description:</label>
+		<input type="text" ng-model="searchText.city" id="searchText" name="searchText">
+	</div>
+
+	<div>
+		<h3>Shows:</h3>
+	</div>
+
+	<div ng-repeat="item in allEvents | filter:searchText">
+		<div class="event-card">
+
+			<div class="row">
+				<div class="col s12">{{item.band_name}}</div>
+			</div>
+
+			<div class="row">
+				<div class="col s6">
+					<ul>
+						<li>{{item.event_name}}</li>
+						<li>{{item.start_time}}</li>
+						<li>{{item.event_description}}</li>
+					</ul>
+				</div>	
+				<div class="col s3">
+					<ul>
+						<li>{{item.venue_name}}</li>
+						<li>{{item.city}}, {{item.state}}</li>
+						<li>{{item.country}}</li>
+						<li>
+					</ul>
+				</div>
+				<div class="col s3">
+					<a class="waves-effect waves-teal btn-flat green" ng-click="checkId(item.event_id)">Save</a>
+					<a class="waves-effect waves-teal btn-flat red">Delete</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
