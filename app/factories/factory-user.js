@@ -132,17 +132,28 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
     // };
 
-var provider = new firebase.auth.FacebookAuthProvider();
+    var provider = new firebase.auth.FacebookAuthProvider();
 
 
-firebase.auth().onIdTokenChanged(function(user) {
+    let firebase_user = null;
 
-    console.log("firebase onIdTokenChanged triggered");
-  if (user) {
-    // User is signed in or token was refreshed.
-     console.log("firebase user:", user);
-  }
-});
+    firebase.auth().onIdTokenChanged(function(user) {
+
+        console.log("firebase onIdTokenChanged triggered");
+      if (user) {
+        // User is signed in or token was refreshed.
+         console.log("firebase user:", user);
+
+         firebase_user = user;
+
+      }
+    });
+
+    const getFirebaseUser = function () {
+        return firebase_user;
+    };
+
+
 
 // firebase.auth().onAuthStateChanged(function(user) {
 
@@ -192,6 +203,6 @@ firebase.auth().onIdTokenChanged(function(user) {
 
 
 
-    return { isAuthenticated, checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn };
+    return { isAuthenticated, checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn, getFirebaseUser };
 });
 

@@ -2,17 +2,17 @@
 	<nav>
 		<div class="nav-wrapper red">
 			<div class="container">
-		      <a href="#" class="brand-logo">RokBlok</a>
-		      <ul id="nav-mobile" class="right hide-on-med-and-down">
-		        <!-- <li><a href="#" id="login" ng-click="loginClicked()">Login</a></li> -->
-		        <!-- <li><a href="#" id="authCode" ng-click="getAuthCode()">Get Auth Code</a></li>
-		        <li><a href="#" id="token" ng-click="getAccessToken()">Get Access Token</a></li> -->
-		        <li><a href="#" id="checkLogin" ng-click="statCheck()">Check Login</a></li>
-		      
-				<li><div ng-show="isLoggedIn" id="targetDiv"></div></li>
-				<li><div ng-show="isLoggedIn" id="userName"></div></li>
-				<li><a ng-show="isLoggedIn" ng-click="logOutLink()" id="logout">Logout</a></li>
-		      </ul>
+				<div class="row">
+			      <a href="#" class="brand-logo">RokBlok</a>
+			      <ul id="nav-mobile" class="right hide-on-med-and-down">
+			        <li><a id="checkFacebookLogin" ng-click="statCheck()">Check Facebook Login</a></li>
+			        <li><a id="checkFirebaseLogin" ng-click="firebaseCheck()">Check Firebase Login</a></li>
+			      
+					<li><div ng-show="isLoggedIn" id="targetDiv"></div></li>
+					<li><div ng-show="isLoggedIn" id="userName"></div></li>
+					<li><a ng-show="isLoggedIn" ng-click="logOutLink()" id="logout">Logout</a></li>
+			      </ul>
+			    </div>
 		    </div>
 		</div>
 	</nav>

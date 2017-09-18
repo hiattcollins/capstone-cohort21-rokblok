@@ -46,11 +46,11 @@ app.config(($routeProvider, $httpProvider)=> {
         controller: 'userCtrl'
 
     })
-    .when('/shows', {
-        templateUrl: 'partials/show-events.html',
-        controller: 'eventShowCtrl',
-        resolve: {isAuth}
-    })
+    // .when('/shows', {
+    //     templateUrl: 'partials/show-events.html',
+    //     controller: 'eventShowCtrl',
+    //     resolve: {isAuth}
+    // })
     .otherwise('/');
 });
 

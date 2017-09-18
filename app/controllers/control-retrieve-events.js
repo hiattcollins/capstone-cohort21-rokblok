@@ -26,45 +26,68 @@ app.controller("eventRetrieveCtrl", function($scope, $window, $location, $q, $ht
 	// 	// 	console.log("pullEventsFromFB results", results);
 	// 	// });
 	// };
-	$scope.checkId = function(eventId) {
-		console.log("eventId", eventId);
 
-		function isCorrectObject(element) {
-			if (element.event_id == eventId) {
-			return (element);
-			}
-		}
+	// let firebase_userInfo = userFactory.getFirebaseUser();
+	// let firebase_userId = firebase_userInfo.uid;
+	// console.log("control-retrieve-events firebase_userId:", firebase_userId);
 
-		let eventsToSearch = eventFactory.getIndividualEventsArray();
-		let foundEvent = eventsToSearch.find(isCorrectObject);
+	// $scope.checkId = function(eventId) {
+	// 	console.log("eventId", eventId);
 
-		console.log("foundEvent:", foundEvent);
+	// 	function isCorrectObject(element) {
+	// 		if (element.event_id == eventId) {
+	// 		return (element);
+	// 		}
+	// 	}
 
-		eventFactory.saveEvent(foundEvent);
+	// 	let firebase_userInfo = userFactory.getFirebaseUser();
+	// 	let firebase_userId = firebase_userInfo.uid;
+	// 	console.log("control-retrieve-events checkId firebase_userId:", firebase_userId);
 
-	};
+	// 	let eventsToSearch = eventFactory.getIndividualEventsArray();
+	// 	let foundEvent = eventsToSearch.find(isCorrectObject);
+
+	// 	foundEvent.user_id = firebase_userId;
+
+	// 	console.log("foundEvent:", foundEvent);
+
+	// 	eventFactory.saveEvent(foundEvent);
+
+	// };
+
+	// $scope.getEventsFromFirebase = function() {
+
+	// 	let firebase_userInfo = userFactory.getFirebaseUser();
+	// 	let firebase_userId = firebase_userInfo.uid;
+	// 	console.log("control-retrieve-events getEventsFromFirebase firebase_userId:", firebase_userId);
+
+	// 	eventFactory.getSavedEvents(firebase_userId)
+	// 	.then((eventResults) => {
+	// 		console.log("eventResults:", eventResults);
+	// 	});
+	// };
 
 
-	$scope.pullEventsFromFB = function () {
-		console.log("eventFactory.facebookDataDone:", eventFactory.facebookDataDone);
-		eventFactory.getLikes();
-	};
+	// $scope.pullEventsFromFB = function () {
+	// 	console.log("eventFactory.facebookDataDone:", eventFactory.facebookDataDone);
+	// 	eventFactory.getLikes();
+	// };
 
 
-	let counter = 1;
+	// let counter = 1;
 
-	$scope.$watch(function(){return eventFactory.facebookDataDone;}, function(newValue, oldValue, scope){
-		console.log("newValue:", newValue, "oldValue", oldValue, "scope", scope);
-		console.log("eventFactory.facebookDataDone", eventFactory.facebookDataDone);
-		console.log("counter:", counter);
-		counter++;
-		indicator();
-	}, true);
+	// $scope.$watch(function(){return eventFactory.facebookDataDone;}, function(newValue, oldValue, scope){
+	// 	console.log("newValue:", newValue, "oldValue", oldValue, "scope", scope);
+	// 	console.log("eventFactory.facebookDataDone", eventFactory.facebookDataDone);
+	// 	console.log("counter:", counter);
+	// 	counter++;
+	// 	indicator();
+	// }, true);
 
-	let indicator = function () {
-		// $window.alert("data load is done!");
-		console.log("data load is done");
-	};
+	// let indicator = function () {
+	// 	// $window.alert("data load is done!");
+	// 	console.log("data load is done");
+	// };
 
 	// $scope.$watch(function(){return eventFactory.facebookDataDone;}, function(newValue, oldValue, scope){
 	// 	console.log("newValue:", newValue, "oldValue", oldValue, "scope", scope);
