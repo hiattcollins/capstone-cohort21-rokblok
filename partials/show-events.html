@@ -1,12 +1,12 @@
 <div> <!-- ng-controller="eventShowCtrl" -->
 
 	<div>
-		<button ng-click="getEventsFromFacebook()">Get Events</button>
-		<button ng-click="getEventsFromFirebase()">Get Saved Events</button>
+		<!-- <button ng-click="loadAndDisplayEvents()">Get Events</button> -->
+		<!-- <button ng-click="getEventsFromFirebase()">Get Saved Events</button> -->
 	</div>
 
 	<div>
-		<label for="inputText">Search by Description:</label>
+		<label for="inputText">Search by City:</label>
 		<input type="text" ng-model="searchText.city" id="searchText" name="searchText">
 	</div>
 
@@ -39,7 +39,7 @@
 					</ul>
 				</div>
 				<div class="col s3">
-					<a class="waves-effect waves-teal btn-flat green" ng-click="checkId(item.event_id)" ng-hide="item.data_id">Save</a>  <!--ng-hide="item.data_id"-->
+					<a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>  <!--ng-hide="item.data_id"-->
 					<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a>
 				</div>
 			</div>

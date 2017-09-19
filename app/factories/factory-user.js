@@ -17,6 +17,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
             if (res.authResponse){
                     // currentUser = user.uid;
                     // console.log("user", user.uid);
+                    // firebaseCheck();
                     resolve(true);
                 }else {
                     $window.location.href = "#!/login";
@@ -51,8 +52,31 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
         loginReturn = res;
 
+        firebase.auth().signInWithRedirect(provider);
+
+        $window.location.href = "#!/";
+
+        // firebase.auth().signInWithRedirect(provider);
+
         }, {scope: 'user_likes'});
 
+
+    };
+
+    const doLogout = function () {
+        ezfb.logout(function (res) {
+            console.log("logout checked - res:", res);
+        });
+
+        firebase.auth().signOut().then(function() {
+          console.log('Signed Out');
+          firebase_user = null;
+          console.log("firebase_user after logout:", firebase_user);
+        }, function(error) {
+          console.error('Sign Out Error', error);
+        });
+
+        $window.location.href = "#!/login";
     };
 
 
@@ -134,33 +158,86 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
     var provider = new firebase.auth.FacebookAuthProvider();
 
+    console.log("provider:", provider);
+
+    // firebase.auth().signInWithPopup(provider).then(function(result) {
+    //     console.log("popup result:", result);
+    // });
+
+    // firebase.auth().signInWithRedirect();
+
+    // firebase.auth().getRedirectResult(  ).then(function(result) {
+    //     console.log("getRedirectResult result:", result);
+    // });
+
 
     let firebase_user = null;
 
-    firebase.auth().onIdTokenChanged(function(user) {
+    // firebase.auth().onIdTokenChanged(function(user) {
 
-        console.log("firebase onIdTokenChanged triggered");
-      if (user) {
-        // User is signed in or token was refreshed.
-         console.log("firebase user:", user);
+    //     console.log("firebase onIdTokenChanged triggered - user:", user);
+    //   if (user) {
+    //     // User is signed in or token was refreshed.
+    //      console.log("firebase user:", user);
 
-         firebase_user = user;
+    //      firebase_user = user;
 
-      }
-    });
+    //   }
+    // });
+
+    // firebase.auth().signInWithRedirect(provider);
+
+    // firebase.auth();
+
+    // let firebaseCheck = function () {
+    //     console.log("firebaseCheck triggered");
+
+    //     // firebase.auth().onIdTokenChanged(function(user) {
+
+    //     //     console.log("firebase onIdTokenChanged triggered - user:", user);
+    //     //   if (user) {
+    //     //     // User is signed in or token was refreshed.
+    //     //      console.log("firebase user:", user);
+
+    //     //      firebase_user = user;
+
+    //     //   }
+    //     // });
+
+    //     firebase.auth().getRedirectResult().then(function(result) {
+    //     console.log("firebase auth result:", result);
+    //     });
+
+
+    // };
+
+    // firebase.auth().getRedirectResult().then(function(result) {
+    //     console.log("firebase auth result:", result);
+    // });
+
+
+
+
+    // firebase.auth().onAuthStateChanged(function(user) {
+
+    // console.log("firebase onAuthStateChanged triggered - user:", user);
+
+    // });
+
 
     const getFirebaseUser = function () {
-        return firebase_user;
+        // return firebase_user;
+        console.log("getFirebaseUser triggered - no remaining functions");
     };
 
 
 
 // firebase.auth().onAuthStateChanged(function(user) {
 
-//     console.log("firebase onAuthStateChanged triggered");
+//     console.log("firebase onAuthStateChanged triggered- user:", user);
 
 //   if (user) {
-//     // User is signed in.
+//     console.log("User is signed in.");
 //   }
 // });
 
@@ -203,6 +280,6 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
 
 
-    return { isAuthenticated, checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn, getFirebaseUser };
+    return { isAuthenticated, checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn, doLogout, getFirebaseUser };
 });
 

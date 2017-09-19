@@ -11,6 +11,10 @@ app.controller("navbarCtrl", function($scope, $window, $location, $q, $http, use
         userFactory.doLogIn();
     };
 
+    $scope.logoutClicked = function () {
+        userFactory.doLogout();
+    };
+
 
     $scope.statCheck = function () {
 

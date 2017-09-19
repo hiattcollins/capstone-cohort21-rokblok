@@ -8,9 +8,9 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
     let facebookDataDone = {isdone: false};
 
 
-    const compileAllEvents = function () {
+    const compileAllEvents = function (firebase_userId) {
         return $q((resolve, reject) => {
-            getSavedEvents()
+            getSavedEvents(firebase_userId)
             .then((firebaseEvents) => {
 
                 console.log("firebaseEvents:", firebaseEvents); 
@@ -45,32 +45,6 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
     };
 
 
-
-// et combinedArray = firebaseMovieArray;
-
-//                     let firebaseIndices = $.map(firebaseMovieArray, (element, index) => {
-//                         return element.id;
-//                     }); 
-
-//                     console.log("firebaseIndices", firebaseIndices);
-
-//                     // let result = $.grep(arrayOfMoviesFromSearch, function (elementAPI, indexAPI) => {
-//                     //     return($.each(firebaseMovieArray, (indexFB, itemFB) => {
-
-//                     //     }););
-//                     // });
-
-//                     $.each(arrayOfMoviesFromSearch, (indexAPI, itemAPI) => {
-//                         if (firebaseIndices.includes(itemAPI.id)) {
-//                             console.log("searched movie appears on FB");
-//                         } else {
-//                             combinedArray.push(itemAPI);
-//                         }
-//                     });
-
-
-
-
     const saveEvent = function(eventObject) {
         let objectToSave = angular.toJson(eventObject);
         console.log("objectToSave", objectToSave);
@@ -89,9 +63,9 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
 
     const getSavedEvents = function(firebase_userId){
         let events = [];
-        console.log("url is", `${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"`); //   &equalTo="${firebase_userId}" 
+        console.log("url is", `${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`); //   &equalTo="${firebase_userId}" 
         return $q((resolve, reject) => {
-            $http.get(`${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"`)
+            $http.get(`${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`)
             .then((eventObject) => {
                 console.log("eventObject:", eventObject);
                 let eventCollection = eventObject.data;
@@ -127,54 +101,6 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
     };
 
 
-    //     const deleteTask = function(id){
-    //     console.log("deleteTask id->", id);
-    //     return $q((resolve, reject) => {
-    //         $http.delete(`${FBCreds.databaseURL}/items/${id}.json`)
-    //         .then((response) => {
-    //             resolve(response);
-    //         })
-    //         .catch((error) => {
-    //             reject(error);
-    //         });
-    //     });
-    // };
-
-    // const getAllTasks = function(user){
-    //     let tasks = [];
-    //     console.log("url is", `${FBCreds.databaseURL}/items.json?orderBy="uid"&equalTo="${user}"`);
-    //     return $q((resolve, reject) => {
-    //         $http.get(`${FBCreds.databaseURL}/items.json?orderBy="uid"&equalTo="${user}"`)
-    //         .then((itemObject) => {
-    //             let itemCollection = itemObject.data;
-    //             console.log("itemCollection", itemCollection);
-    //             Object.keys(itemCollection).forEach((key) => {
-    //                 itemCollection[key].id = key;
-    //                 tasks.push(itemCollection[key]);
-    //             });
-    //             resolve(tasks);
-    //         })
-    //         .catch((error) => {
-    //             reject(error);
-    //         });
-    //     });
-    // };
-
-
-    // const addTask = function(obj){
-    //     let newObj = JSON.stringify(obj);
-    //     return $http.post(`${FBCreds.databaseURL}/items.json`, newObj)
-    //     .then((data) => {
-    //         console.log("data", data);
-    //         return data;
-    //     }, (error) => {
-    //         let errorCode = error.code;
-    //         let errorMessage = error.message;
-    //         console.log("error", errorCode, errorMessage);
-    //     });
-    // };
-
-
     // ****** Function to Load Liked Pages from Facebook and Compile Array of Individual Event Objects ****** /
     const loadFacebookEvents = function () {
         console.log("loadFacebookEvents triggered");
@@ -183,10 +109,13 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
         const getLikes = function() {
             console.log("getLikes triggered");
 
+            let yesterday = new Date(Date.now() - 86400000);
+            let now = new Date(Date.now());
+
             let cursor;
             let likesArray = [];
             let counter = 0;
-            let cutoffDate = "2017-09-13";
+            let cutoffDate = now;
 
             var likesLoader = function() {
                 console.log("likesLoader triggered");
@@ -302,8 +231,6 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
                         // });
                     });
                 });
-                // console.log("arrayOfFacebookEvents", arrayOfFacebookEvents);
-
             };
 
             $q.when(constructEventObjects())
@@ -314,7 +241,6 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
             });
 
         };
-        // return arrayOfFacebookEvents;
     };
 
     const getFacebookEventsArray = function () {
