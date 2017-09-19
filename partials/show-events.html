@@ -1,7 +1,12 @@
-<div ng-controller="eventRetrieveCtrl">
+<div> <!-- ng-controller="eventShowCtrl" -->
 
 	<div>
-		<label for="inputText">Search by Description:</label>
+		<!-- <button ng-click="loadAndDisplayEvents()">Get Events</button> -->
+		<!-- <button ng-click="getEventsFromFirebase()">Get Saved Events</button> -->
+	</div>
+
+	<div>
+		<label for="inputText">Search by City:</label>
 		<input type="text" ng-model="searchText.city" id="searchText" name="searchText">
 	</div>
 
@@ -9,7 +14,7 @@
 		<h3>Shows:</h3>
 	</div>
 
-	<div ng-repeat="item in allEvents | filter:searchText">
+	<div ng-repeat="item in allEvents | filter:searchText | orderBy:'start_time'">  <!--filter:searchText, -->
 		<div class="event-card">
 
 			<div class="row">
@@ -20,8 +25,9 @@
 				<div class="col s6">
 					<ul>
 						<li>{{item.event_name}}</li>
-						<li>{{item.start_time}}</li>
-						<li>{{item.event_description}}</li>
+						<li>{{item.start_time | date:'fullDate'}}</li>
+						<li>{{item.event_description | limitTo:175}}...</li>
+						<li>item.data_id: {{item.data_id}}</li>
 					</ul>
 				</div>	
 				<div class="col s3">
@@ -33,8 +39,8 @@
 					</ul>
 				</div>
 				<div class="col s3">
-					<a class="waves-effect waves-teal btn-flat green" ng-click="checkId(item.event_id)">Save</a>
-					<a class="waves-effect waves-teal btn-flat red">Delete</a>
+					<a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>  <!--ng-hide="item.data_id"-->
+					<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a>
 				</div>
 			</div>
 

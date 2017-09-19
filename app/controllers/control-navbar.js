@@ -11,6 +11,10 @@ app.controller("navbarCtrl", function($scope, $window, $location, $q, $http, use
         userFactory.doLogIn();
     };
 
+    $scope.logoutClicked = function () {
+        userFactory.doLogout();
+    };
+
 
     $scope.statCheck = function () {
 
@@ -24,6 +28,12 @@ app.controller("navbarCtrl", function($scope, $window, $location, $q, $http, use
         // // $scope.loginStatus = res;
         // });
 
+    };
+
+    $scope.firebaseCheck = function () {
+        let firebaseUserinfo = userFactory.getFirebaseUser();
+        console.log("firebaseUserinfo:", firebaseUserinfo);
+        console.log("firebaseUserinfo.uid:", firebaseUserinfo.uid);
     };
 
     // ezfb.getLoginStatus();
