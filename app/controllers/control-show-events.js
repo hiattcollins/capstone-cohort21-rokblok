@@ -7,6 +7,12 @@ app.controller("eventShowCtrl", function($scope, $window, $location, $q, $http, 
 
 
 
+	$scope.sortEventsBy = 'start_time';
+
+	$scope.sortBy = function(propertyName) {
+		$scope.sortEventsBy = propertyName;
+	};
+
 	//******* Function to Retrieve Firebase User Id *******//
 
 	let firebase_userId = "";

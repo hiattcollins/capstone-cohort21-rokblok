@@ -1,49 +1,63 @@
 <div> <!-- ng-controller="eventShowCtrl" -->
+	<div class="row">
 
-	<div>
-		<!-- <button ng-click="loadAndDisplayEvents()">Get Events</button> -->
-		<!-- <button ng-click="getEventsFromFirebase()">Get Saved Events</button> -->
-	</div>
+		<div class="col s3">
+			<div class="pinned">
+				<div class="nav-wrapper">
+					<div>
+						<button ng-click="sortBy('band_name')">Sort by Band Name</button>
+						<button ng-click="sortBy('start_time')">Sort by Date</button>
+					</div>
 
-	<div>
-		<label for="inputText">Search by City:</label>
-		<input type="text" ng-model="searchText.city" id="searchText" name="searchText">
-	</div>
-
-	<div>
-		<h3>Shows:</h3>
-	</div>
-
-	<div ng-repeat="item in allEvents | filter:searchText | orderBy:'start_time'">  <!--filter:searchText, -->
-		<div class="event-card">
-
-			<div class="row">
-				<div class="col s12">{{item.band_name}}</div>
-			</div>
-
-			<div class="row">
-				<div class="col s6">
-					<ul>
-						<li>{{item.event_name}}</li>
-						<li>{{item.start_time | date:'fullDate'}}</li>
-						<li>{{item.event_description | limitTo:175}}...</li>
-						<li>item.data_id: {{item.data_id}}</li>
-					</ul>
-				</div>	
-				<div class="col s3">
-					<ul>
-						<li>{{item.venue_name}}</li>
-						<li>{{item.city}}, {{item.state}}</li>
-						<li>{{item.country}}</li>
-						<li>
-					</ul>
-				</div>
-				<div class="col s3">
-					<a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>  <!--ng-hide="item.data_id"-->
-					<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a>
+					<div>
+						<label for="inputText">Search by City:</label>
+						<input type="text" ng-model="searchText.city" id="searchText" name="searchText">
+					</div>
 				</div>
 			</div>
+		</div>
 
+		<div class="col s9">
+			<div> <!-- class="container" -->
+				<div>
+					<h3>Shows:</h3>
+				</div>
+
+				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy">  <!--filter:searchText, -->
+					<div class="event-card">
+
+						<div class="row">
+							<div class="col s4"><img src="{{item.cover_pic}}" width="250"></div>
+							<div class="col s8">{{item.band_name}}</div>
+						</div>
+
+						<div class="row">
+							<div class="col s6">
+								<ul>
+									<li>{{item.event_name}}</li>
+									<li>{{item.start_time | date:'fullDate'}}</li>
+									<li>{{item.event_description | limitTo:175}}...</li>
+									<li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li>
+									<li>item.data_id: {{item.data_id}}</li>
+								</ul>
+							</div>	
+							<div class="col s3">
+								<ul>
+									<li>{{item.venue_name}}</li>
+									<li>{{item.city}}, {{item.state}}</li>
+									<li>{{item.country}}</li>
+									<li>
+								</ul>
+							</div>
+							<div class="col s3">
+								<a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>  <!--ng-hide="item.data_id"-->
+								<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
