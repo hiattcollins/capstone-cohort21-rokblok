@@ -5,8 +5,14 @@
 			<div class="pinned">
 				<div class="nav-wrapper">
 					<div>
-						<button ng-click="sortBy('band_name')">Sort by Band Name</button>
-						<button ng-click="sortBy('start_time')">Sort by Date</button>
+						<ul>
+							<li><button ng-click="sortBy('band_name')">Sort by Band Name</button></li>
+							<li><button ng-click="sortBy('start_time')">Sort by Date</button></li>
+<!-- 							<li><button ng-click="showLikes({data_id: '-'})">Show Saved</button></li>
+							<li><button ng-click="showLikes({})">Show All</button></li> -->
+							<li><button ng-click="showOnlyLikes=true">Show Saved</button></li>
+							<li><button ng-click="showOnlyLikes=false">Show All</button></li>
+						</ul>
 					</div>
 
 					<div>
@@ -18,12 +24,19 @@
 		</div>
 
 		<div class="col s9">
-			<div> <!-- class="container" -->
+
+			<div ng-hide="displayDataReady">
+				<h2>LOADING</h2>
+			</div>
+
+			<div ng-show="displayDataReady">
 				<div>
 					<h3>Shows:</h3>
 				</div>
 
-				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy">  <!--filter:searchText, -->
+				<!--<div ng-repeat="item in allEvents | filter:searchText | filter:isLiked | orderBy:sortEventsBy">--> <!-- ng-show="isLiked">  filter:searchText, -->
+
+				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy" ng-show="showLikes(item.data_id, showOnlyLikes)">  <!--filter:searchText, -->
 					<div class="event-card">
 
 						<div class="row">
@@ -36,7 +49,7 @@
 								<ul>
 									<li>{{item.event_name}}</li>
 									<li>{{item.start_time | date:'fullDate'}}</li>
-									<li>{{item.event_description | limitTo:175}}...</li>
+									<li ng-show="item.event_description">{{item.event_description | limitTo:175}}...</li>
 									<li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li>
 									<li>item.data_id: {{item.data_id}}</li>
 								</ul>
@@ -44,8 +57,8 @@
 							<div class="col s3">
 								<ul>
 									<li>{{item.venue_name}}</li>
-									<li>{{item.city}}, {{item.state}}</li>
-									<li>{{item.country}}</li>
+									<li><span ng-show="item.city">{{item.city}}, </span><span ng-show="item.state">{{item.state}}</span></li>
+									<li ng-show="item.country">{{item.country}}</li>
 									<li>
 								</ul>
 							</div>

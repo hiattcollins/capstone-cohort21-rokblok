@@ -5,12 +5,24 @@ console.log("control-show-events.js");
 
 app.controller("eventShowCtrl", function($scope, $window, $location, $q, $http, eventFactory, userFactory, ezfb){
 
-
+	$scope.displayDataReady = false;
 
 	$scope.sortEventsBy = 'start_time';
 
 	$scope.sortBy = function(propertyName) {
 		$scope.sortEventsBy = propertyName;
+	};
+
+	$scope.showOnlyLikes = false;
+
+	$scope.showLikes = function(data_id, show_only_likes) {
+		if (show_only_likes === false) {
+			return true;
+		} else if (data_id) {
+			return true;
+		}
+		// console.log("whatToShow:", whatToShow, somethingElse);
+		// $scope.isLiked = whatToShow;
 	};
 
 	//******* Function to Retrieve Firebase User Id *******//
@@ -172,6 +184,7 @@ app.controller("eventShowCtrl", function($scope, $window, $location, $q, $http, 
 		.then((results) => {
 			console.log("loadAndDisplayEvents results:", results);
 			$scope.allEvents = results;
+			$scope.displayDataReady = true;
 		});
 
 
