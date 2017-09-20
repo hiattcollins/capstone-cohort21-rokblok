@@ -6,12 +6,18 @@
 				<div class="nav-wrapper">
 					<div>
 						<ul>
-							<li><button ng-click="sortBy('band_name')">Sort by Band Name</button></li>
-							<li><button ng-click="sortBy('start_time')">Sort by Date</button></li>
-<!-- 							<li><button ng-click="showLikes({data_id: '-'})">Show Saved</button></li>
-							<li><button ng-click="showLikes({})">Show All</button></li> -->
-							<li><button ng-click="showOnlyLikes=true">Show Saved</button></li>
-							<li><button ng-click="showOnlyLikes=false">Show All</button></li>
+							<li>
+								<a ng-click="sortBy('band_name')" class="waves-effect waves-light btn-flat blue">Sort by Band Name</a>
+							</li>
+							<li>
+								<a ng-click="sortBy('start_time')" class="waves-effect waves-light btn-flat blue">Sort by Date</a>
+							</li>
+							<li>
+								<a ng-click="showOnlyLikes=true" class="waves-effect waves-light btn-flat blue">Show Saved</a>
+							</li>
+							<li>
+								<a ng-click="showOnlyLikes=false" class="waves-effect waves-light btn-flat blue">Show All</a>
+							</li>
 						</ul>
 					</div>
 
@@ -30,14 +36,56 @@
 			</div>
 
 			<div ng-show="displayDataReady">
-				<div>
+			<!-- 	<div>
 					<h3>Shows:</h3>
-				</div>
+				</div> -->
 
 				<!--<div ng-repeat="item in allEvents | filter:searchText | filter:isLiked | orderBy:sortEventsBy">--> <!-- ng-show="isLiked">  filter:searchText, -->
 
 				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy" ng-show="showLikes(item.data_id, showOnlyLikes)">  <!--filter:searchText, -->
-					<div class="event-card">
+					
+					<div class="card large sticky-action"> <!-- "card large sticky-action"> -->
+    					<div class="card-image waves-effect waves-block waves-light">
+					      <img class="activator" src="{{item.cover_pic}}">
+						</div>
+					    <div class="card-content">
+					      <div><span class="card-title activator grey-text text-darken-4">{{item.band_name}}<i class="material-icons right"></i></span>
+					      </div>
+					      <div class="row">
+						      <div class="col s6">
+							    	<ul>
+										<li>{{item.event_name}}</li>
+										<li>{{item.start_time | date:'fullDate'}}</li>
+										<!-- <li ng-show="item.event_description">{{item.event_description | limitTo:175}}...</li> -->
+										<li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li>
+										<li>item.data_id: {{item.data_id}}</li>
+										<li>
+										</li>
+									</ul>
+								</div>
+								<div class="col s6">
+									<a class="waves-effect waves-light btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
+									<a class="waves-effect waves-light btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Unsave</a>
+								</div>
+							</div>
+					      <!-- <p><a href="#">This is a link</a></p> -->
+					    </div>
+					    <!-- <div class="card-action"> -->
+						   <!--  <a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
+							<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a> -->
+					    <!-- </div> -->
+					    <div class="card-reveal">
+						    <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+						    <p><img src="{{item.cover_pic}}"></p>
+						    <p ng-show="item.event_description">{{item.event_description}}</p>
+					    </div>
+					  </div>
+
+
+
+
+
+					<!--<div class="event-card">
 
 						<div class="row">
 							<div class="col s4"><img src="{{item.cover_pic}}" width="250"></div>
@@ -63,12 +111,16 @@
 								</ul>
 							</div>
 							<div class="col s3">
-								<a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>  <!--ng-hide="item.data_id"-->
-								<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a>
+								<a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>-->  <!--ng-hide="item.data_id"-->
+								<!--<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a>
 							</div>
 						</div>
 
-					</div>
+					</div> -->
+
+
+
+
 				</div>
 			</div>
 		</div>
