@@ -3,9 +3,11 @@
 
 console.log("control-show-events.js");
 
-app.controller("eventShowCtrl", function($scope, $window, $location, $q, $http, eventFactory, userFactory, ezfb){
+app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location, $q, $http, eventFactory, userFactory, ezfb){
 
 	$scope.displayDataReady = false;
+
+	$rootScope.showLogoutButton = false;
 
 	$scope.sortEventsBy = 'start_time';
 
@@ -66,6 +68,8 @@ app.controller("eventShowCtrl", function($scope, $window, $location, $q, $http, 
 	    firebase_userId = user.uid;
 
 	    console.log("firebase_userId:", firebase_userId);
+
+	    $rootScope.showLogoutButton = true;
 
 	    eventFactory.loadFacebookEvents();
 
