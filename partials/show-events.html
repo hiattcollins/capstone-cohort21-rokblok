@@ -27,7 +27,8 @@
 					<div class="event-card">
 
 						<div class="row">
-							<div class="col s12">{{item.band_name}}</div>
+							<div class="col s4"><img src="{{item.cover_pic}}" width="250"></div>
+							<div class="col s8">{{item.band_name}}</div>
 						</div>
 
 						<div class="row">
@@ -36,6 +37,7 @@
 									<li>{{item.event_name}}</li>
 									<li>{{item.start_time | date:'fullDate'}}</li>
 									<li>{{item.event_description | limitTo:175}}...</li>
+									<li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li>
 									<li>item.data_id: {{item.data_id}}</li>
 								</ul>
 							</div>	
