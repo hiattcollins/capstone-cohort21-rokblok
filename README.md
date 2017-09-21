@@ -5,9 +5,9 @@ RokBlok is a facebook-linked web app that gathers into one place all concerts by
 ### Features
 
 RokBlok provides:
-*Sorting the list of upcoming events by time or band name
-*Searching the list of upcoming events by city name or band name
-*Saving events that interest the user, or deleting events that have passed or are no longer of interest.
+* Sorting the list of upcoming events by time or band name
+* Searching the list of upcoming events by city name or band name
+* Saving events that interest the user, or deleting events that have passed or are no longer of interest.
 
 ### Technologies Used
 
