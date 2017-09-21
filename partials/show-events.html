@@ -1,30 +1,39 @@
-<div> <!-- ng-controller="eventShowCtrl" -->
+<div class="show-display"> <!-- ng-controller="eventShowCtrl" -->
 	<div class="row">
-
 		<div class="col s3">
 			<div class="pinned">
 				<div class="nav-wrapper">
 					<div>
-						<ul>
+						<ul class="button-list">
 							<li>
-								<a ng-click="sortBy('band_name')" class="waves-effect waves-light btn-flat blue">Sort by Band Name</a>
+								<a ng-click="sortBy('band_name')" class="waves-effect waves-light btn-flat grey darken-1">Sort by Band Name</a>
 							</li>
 							<li>
-								<a ng-click="sortBy('start_time')" class="waves-effect waves-light btn-flat blue">Sort by Date</a>
+								<a ng-click="sortBy('start_time')" class="waves-effect waves-light btn-flat grey darken-1">Sort by Date</a>
 							</li>
 							<li>
-								<a ng-click="showOnlyLikes=true" class="waves-effect waves-light btn-flat blue">Show Saved</a>
+								<a ng-click="showOnlyLikes=true" class="waves-effect waves-light btn-flat grey darken-1">Show Saved</a>
 							</li>
 							<li>
-								<a ng-click="showOnlyLikes=false" class="waves-effect waves-light btn-flat blue">Show All</a>
+								<a ng-click="showOnlyLikes=false" class="waves-effect waves-light btn-flat grey darken-1">Show All</a>
+							</li>
+							<li class="bigger-top-margin">
+								<label>Search by Band Name:</label>
+								<input type="text" ng-model="searchText.band_name">
+							</li>
+							<li>
+								<label>Search by City:</label>
+								<input type="text" ng-model="searchText.city">
 							</li>
 						</ul>
 					</div>
 
-					<div>
-						<label for="inputText">Search by City:</label>
-						<input type="text" ng-model="searchText.city" id="searchText" name="searchText">
-					</div>
+					<!-- <div>
+						<label>Search by Band Name:</label>
+						<input type="text" ng-model="searchText.band_name">
+						<label>Search by City:</label>
+						<input type="text" ng-model="searchText.city">
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -32,7 +41,11 @@
 		<div class="col s9">
 
 			<div ng-hide="displayDataReady">
-				<h2>LOADING</h2>
+				<h2>For those about to rock...</h2>
+				<h3>(i.e., you)</h3>
+				<div class="progress">
+      				<div class="indeterminate"></div>
+  				</div>
 			</div>
 
 			<div ng-show="displayDataReady">
@@ -49,76 +62,51 @@
 					      <img class="activator" src="{{item.cover_pic}}">
 						</div>
 					    <div class="card-content">
-					      <div><span class="card-title activator grey-text text-darken-4">{{item.band_name}}<i class="material-icons right"></i></span>
-					      </div>
-					      <div class="row">
-						      <div class="col s6">
+					    	<div class="card-title activator grey-text text-darken-4">
+					    		<div class="row">
+					    			<div class="col s6">{{item.band_name}}</div>
+					    			<div class="col s6">{{item.start_time | date:'fullDate'}}</div>
+					    		</div>
+					    	</div>
+					    	<!-- <span >{{item.band_name}} - {{item.start_time | date:'fullDate'}}<i class="material-icons right"></i></span>
+					    	</div> -->
+					    <div class="row">
+						      <div class="col s4">
 							    	<ul>
 										<li>{{item.event_name}}</li>
-										<li>{{item.start_time | date:'fullDate'}}</li>
+										<!-- <li>{{item.start_time | date:'fullDate'}}</li> -->
 										<!-- <li ng-show="item.event_description">{{item.event_description | limitTo:175}}...</li> -->
-										<li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li>
-										<li>item.data_id: {{item.data_id}}</li>
+										<!-- <li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li> -->
+										<!-- <li>item.data_id: {{item.data_id}}</li> -->
 										<li>
 										</li>
 									</ul>
 								</div>
-								<div class="col s6">
+								<div class="col s4">
+									<ul>
+										<li><span class="capitalize">{{item.venue_name}}</span></li>
+										<li><span ng-show="item.city">{{item.city}}, </span><span ng-show="item.state">{{item.state}}</span></li>
+										<li ng-show="item.country">{{item.country}}</li>
+										<li>
+									</ul>
+								</div>
+								<div class="col s4">
 									<a class="waves-effect waves-light btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
 									<a class="waves-effect waves-light btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Unsave</a>
 								</div>
 							</div>
-					      <!-- <p><a href="#">This is a link</a></p> -->
+					
 					    </div>
-					    <!-- <div class="card-action"> -->
-						   <!--  <a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
-							<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a> -->
-					    <!-- </div> -->
+					    <div class="card-action">
+							<a href="{{item.event_link}}" target="_blank">Facebook Event Page</a>
+							<a href="{{item.ticket_uri}}" target="_blank" ng-show="item.ticket_uri">Tickets</a>
+					    </div>
 					    <div class="card-reveal">
-						    <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+						    <span class="card-title grey-text text-darken-4">{{item.event_name}}<i class="material-icons right">close</i></span>
 						    <p><img src="{{item.cover_pic}}"></p>
 						    <p ng-show="item.event_description">{{item.event_description}}</p>
 					    </div>
 					  </div>
-
-
-
-
-
-					<!--<div class="event-card">
-
-						<div class="row">
-							<div class="col s4"><img src="{{item.cover_pic}}" width="250"></div>
-							<div class="col s8">{{item.band_name}}</div>
-						</div>
-
-						<div class="row">
-							<div class="col s6">
-								<ul>
-									<li>{{item.event_name}}</li>
-									<li>{{item.start_time | date:'fullDate'}}</li>
-									<li ng-show="item.event_description">{{item.event_description | limitTo:175}}...</li>
-									<li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li>
-									<li>item.data_id: {{item.data_id}}</li>
-								</ul>
-							</div>	
-							<div class="col s3">
-								<ul>
-									<li>{{item.venue_name}}</li>
-									<li><span ng-show="item.city">{{item.city}}, </span><span ng-show="item.state">{{item.state}}</span></li>
-									<li ng-show="item.country">{{item.country}}</li>
-									<li>
-								</ul>
-							</div>
-							<div class="col s3">
-								<a class="waves-effect waves-teal btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>-->  <!--ng-hide="item.data_id"-->
-								<!--<a class="waves-effect waves-teal btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Delete</a>
-							</div>
-						</div>
-
-					</div> -->
-
-
 
 
 				</div>
