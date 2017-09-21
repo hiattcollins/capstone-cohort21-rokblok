@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("navbarCtrl", function($scope, $window, $location, $q, $http, userFactory, ezfb){
+app.controller("navbarCtrl", function($rootScope, $scope, $window, $location, $q, $http, userFactory, ezfb){
 
 
 
@@ -13,8 +13,12 @@ app.controller("navbarCtrl", function($scope, $window, $location, $q, $http, use
 
     $scope.logoutClicked = function () {
         userFactory.doLogout();
+        $rootScope.showLogoutButton = false;
     };
 
+    firebase.auth().onAuthStateChanged(function(user) {
+        console.log("control-navbar firebase user:", user);
+    });
 
     $scope.statCheck = function () {
 

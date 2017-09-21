@@ -123,7 +123,7 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
                 // name,about,category,events.since(${cutoffDate})
                 // name,about,category,events.since(${cutoffDate}){end_time,name,place,start_time,id,description,cover}
 
-                ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate}){end_time,name,place,start_time,id,description,cover}`}, function(callResults) {
+                ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate}){end_time,name,place,start_time,id,description,cover,ticket_uri}`}, function(callResults) {
                     console.log("here's *callResults* in likesLoader", callResults);
 
                         if (callResults.data[0]) {
@@ -172,6 +172,7 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
                         event_name: "",
                         event_description: "",
                         event_link: "",
+                        ticket_uri: "",
                         venue_name: "",
                         start_time: "",
                         end_time: "",
@@ -200,7 +201,7 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
                     angular.forEach(valueBand.events.data, function (valueEvents, keyEvents) {
 
                         // ******* Reset eventObject to Empty ****** //
-                        eventObject = {band_name: "",cover_pic: undefined,event_name: "",event_description: "",venue_name: "",start_time: "",end_time: "",event_id: "",street: "",city: "",state: "",country: "",zip: "", user_id: undefined, data_id: undefined};
+                        eventObject = {band_name: "",cover_pic: undefined,event_name: "",event_description: "",event_link: undefined,ticket_uri: undefined,venue_name: "",start_time: "",end_time: "",event_id: "",street: "",city: "",state: "",country: "",zip: "", user_id: undefined, data_id: undefined};
 
                         // ******* Set basic event info ****** //
                         eventObject.band_name = valueBand.name;
@@ -209,6 +210,7 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
                         eventObject.end_time = valueEvents.end_time;
                         eventObject.event_id = valueEvents.id;
                         eventObject.event_link = "https://www.facebook.com/events/" + valueEvents.id;
+                        eventObject.ticket_uri = valueEvents.ticket_uri;
 
                         //****** Add cover photo if present ****** //
                         if (valueEvents.cover) {
