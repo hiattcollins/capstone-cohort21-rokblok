@@ -74,12 +74,6 @@
 						      <div class="col s4">
 							    	<ul>
 										<li>{{item.event_name}}</li>
-										<!-- <li>{{item.start_time | date:'fullDate'}}</li> -->
-										<!-- <li ng-show="item.event_description">{{item.event_description | limitTo:175}}...</li> -->
-										<!-- <li><a href="{{item.event_link}}" target="_blank">Link to Event Page</a></li> -->
-										<!-- <li>item.data_id: {{item.data_id}}</li> -->
-										<li>
-										</li>
 									</ul>
 								</div>
 								<div class="col s4">
@@ -91,8 +85,8 @@
 									</ul>
 								</div>
 								<div class="col s4">
-									<a class="waves-effect waves-light btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
-									<a class="waves-effect waves-light btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Unsave</a>
+									<a class="save-btn waves-effect waves-light btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
+									<a class="save-btn waves-effect waves-light btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Unsave</a>
 								</div>
 							</div>
 					
@@ -102,9 +96,24 @@
 							<a href="{{item.ticket_uri}}" target="_blank" ng-show="item.ticket_uri">Tickets</a>
 					    </div>
 					    <div class="card-reveal">
-						    <span class="card-title grey-text text-darken-4">{{item.event_name}}<i class="material-icons right">close</i></span>
-						    <p><img src="{{item.cover_pic}}"></p>
-						    <p ng-show="item.event_description">{{item.event_description}}</p>
+						    <div>
+						    	<span class="card-title grey-text text-darken-4">{{item.event_name}}<i class="material-icons right">X</i></span>
+						    </div>
+						    <div class="card-reveal-pic">
+						    	<img src="{{item.cover_pic}}">
+						    </div>
+						    <div>
+						    	<ul>
+						    		<li ng-show="item.event_description">{{item.event_description}}</li><br>
+						    		<li class="card-reveal-date-time">{{item.start_time | date:"EEEE, MMMM d, y 'at' h:mma"}}</li>
+						    		<li class="capitalize">{{item.venue_name}}</li>
+						    		<li ng-show="item.street">{{item.street}}</li>
+									<li>
+										<span ng-show="item.city">{{item.city}}, </span><span ng-show="item.state">{{item.state}}</span><span ng-show="item.zip"> {{item.zip | limitTo:5}}</span>
+									</li>
+									<li ng-show="item.country">{{item.country}}</li>
+						    	</ul>
+						    </div>
 					    </div>
 					  </div>
 
