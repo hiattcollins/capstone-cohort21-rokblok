@@ -23,8 +23,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 		} else if (data_id) {
 			return true;
 		}
-		// console.log("whatToShow:", whatToShow, somethingElse);
-		// $scope.isLiked = whatToShow;
 	};
 
 	//******* Function to Retrieve Firebase User Id *******//
@@ -38,30 +36,10 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 	};
 
 
-	// firebase.auth().getRedirectResult().then(function(result) {
-	// 	console.log("getRedirectResult on eventShowCtrl result:", result);
-	// });
-
-
-	// firebase.auth().onIdTokenChanged(function(user) {
-
- //        console.log("firebase onIdTokenChanged triggered - user:", user);
- //      if (user) {
- //        // User is signed in or token was refreshed.
- //         console.log("firebase user:", user);
-
- //         let someThing = user;
-
- //         console.log("someThing", someThing);
-
- //      }
- //    });
-
-
 
 	firebase.auth().onAuthStateChanged(function(user) {
 
-	    console.log("firebase onAuthStateChanged triggered- user:", user);
+		console.log("firebase onAuthStateChanged triggered- user:", user);
 
 	  if (user) {
 	    console.log("User is signed in.");
@@ -76,18 +54,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 	  }
 	});
 
-
-	//******* Test Function to Execute on Activation of Controller ******//
-	const onAppOpen = function () {
-		console.log("^^^^^^^^^testFunction just triggered");
-
-		// retrieveFirebaseId();
-		//****** On open - load facebook events *******//
-		// eventFactory.loadFacebookEvents();
-
-	};
-
-	// onAppOpen();
 
 
 	//******* Listener for Completion of Facebook Data *******//
@@ -111,10 +77,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 
 	}, true);
 
-	let indicator = function () {
-		// $window.alert("data load is done!");
-		console.log("data load is done");
-	};
 	//****** End of Facebook Data Listener *******//
 
 

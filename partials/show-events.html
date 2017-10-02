@@ -1,4 +1,4 @@
-<div class="show-display"> <!-- ng-controller="eventShowCtrl" -->
+<div class="show-display">
 	<div class="row">
 		<div class="col s3">
 			<div class="pinned">
@@ -6,16 +6,16 @@
 					<div>
 						<ul class="button-list">
 							<li>
-								<a ng-click="sortBy('band_name')" class="waves-effect waves-light btn-flat grey darken-1">Sort by Band Name</a>
+								<a ng-click="sortBy('band_name')" class="waves-effect waves-light btn-flat grey darken-4">Sort by Band Name</a>
 							</li>
 							<li>
-								<a ng-click="sortBy('start_time')" class="waves-effect waves-light btn-flat grey darken-1">Sort by Date</a>
+								<a ng-click="sortBy('start_time')" class="waves-effect waves-light btn-flat grey darken-4">Sort by Date</a>
 							</li>
 							<li>
-								<a ng-click="showOnlyLikes=true" class="waves-effect waves-light btn-flat grey darken-1">Show Saved</a>
+								<a ng-click="showOnlyLikes=true" class="waves-effect waves-light btn-flat grey darken-4">Show Saved</a>
 							</li>
 							<li>
-								<a ng-click="showOnlyLikes=false" class="waves-effect waves-light btn-flat grey darken-1">Show All</a>
+								<a ng-click="showOnlyLikes=false" class="waves-effect waves-light btn-flat grey darken-4">Show All</a>
 							</li>
 							<li class="bigger-top-margin">
 								<label>Search by Band Name:</label>
@@ -27,13 +27,6 @@
 							</li>
 						</ul>
 					</div>
-
-					<!-- <div>
-						<label>Search by Band Name:</label>
-						<input type="text" ng-model="searchText.band_name">
-						<label>Search by City:</label>
-						<input type="text" ng-model="searchText.city">
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -41,23 +34,22 @@
 		<div class="col s9">
 
 			<div ng-hide="displayDataReady">
-				<h2>For those about to rock...</h2>
-				<h3>(i.e., you)</h3>
+
+				<div id="tuning-up-label">
+  					<img src="../images/redlabel-100-tuning-up.jpg">
+  				</div>
+
 				<div class="progress">
       				<div class="indeterminate"></div>
   				</div>
+
 			</div>
 
 			<div ng-show="displayDataReady">
-			<!-- 	<div>
-					<h3>Shows:</h3>
-				</div> -->
 
-				<!--<div ng-repeat="item in allEvents | filter:searchText | filter:isLiked | orderBy:sortEventsBy">--> <!-- ng-show="isLiked">  filter:searchText, -->
-
-				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy" ng-show="showLikes(item.data_id, showOnlyLikes)">  <!--filter:searchText, -->
+				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy" ng-show="showLikes(item.data_id, showOnlyLikes)">  
 					
-					<div class="card large sticky-action"> <!-- "card large sticky-action"> -->
+					<div class="card large sticky-action">
     					<div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator" src="{{item.cover_pic}}">
 						</div>
@@ -68,8 +60,7 @@
 					    			<div class="col s6">{{item.start_time | date:'fullDate'}}</div>
 					    		</div>
 					    	</div>
-					    	<!-- <span >{{item.band_name}} - {{item.start_time | date:'fullDate'}}<i class="material-icons right"></i></span>
-					    	</div> -->
+					    	
 					    <div class="row">
 						      <div class="col s4">
 							    	<ul>
@@ -85,8 +76,8 @@
 									</ul>
 								</div>
 								<div class="col s4">
-									<a class="save-btn waves-effect waves-light btn-flat green" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
-									<a class="save-btn waves-effect waves-light btn-flat red" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Unsave</a>
+									<a class="save-btn waves-effect waves-light btn-flat teal darken-1" ng-click="saveEventToFirebase(item.event_id)" ng-hide="item.data_id">Save</a>
+									<a class="save-btn waves-effect waves-light btn-flat red darken-1" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Unsave</a>
 								</div>
 							</div>
 					

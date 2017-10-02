@@ -1,4 +1,40 @@
+.navbar-background {
+	background-image: url("../images/rokblok_navbar_2.png");
+	max-width: 100%;
+	height: 67px !important;
+	border-bottom: 2px solid white !important;
+}
 
+#navbar-logo {
+	border: white solid 1px !important;
+	margin: 1px 0 0 10px !important;
+}
+
+#login-button {
+	border: white solid 1px !important;
+	margin-top: 180px !important;
+	height: 60px !important;
+}
+
+#login-background {
+	background-color: black !important;	
+	height: 800px !important;
+}
+
+#logOut {
+	width: 225px !important;
+	height: 40px !important;
+	padding: 0 !important;
+	margin: 10px 40px 0 0px !important;
+}
+
+#log-out-image {
+	border: white solid 1px !important;
+}
+
+#tuning-up-label {
+	margin-top: 60px !important;
+}
 
 .pinned {
 	 position: fixed !important;
@@ -10,7 +46,7 @@
 
 .button-list li a {
 	margin: 5px auto;
-	width: 208px !important;
+	width: 271px !important;
 	color: white !important;
 }
 
@@ -32,4 +68,5 @@
 
 .save-btn {
 	margin-top: 30px !important;
+	color: white !important;
 }
