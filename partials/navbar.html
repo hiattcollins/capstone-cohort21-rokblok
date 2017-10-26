@@ -1,18 +1,21 @@
 <div ng-controller="navbarCtrl">
 	<div class="navbar-fixed">
 		<nav>
-			<div class="nav-wrapper red darken-4">
-				<div class="container">
+			<!-- <div class="nav-wrapper red darken-4"> -->
+			<div class="navbar-background">
+				<div>
+				<!-- <div class="container"> -->
 					<div class="row">
-				      <a href="#" class="brand-logo">RokBlok</a>
+				      <!-- <a href="#" class="brand-logo">RokBlok</a> -->
+				      <img id="navbar-logo" src="../images/blacklabel-60-rokblok.jpg">
 				      <ul id="nav-mobile" class="right hide-on-med-and-down">
-<!-- 				        <li><a id="checkFacebookLogin" ng-click="statCheck()">Check Facebook Login</a></li>
-				        <li><a id="checkFirebaseLogin" ng-click="firebaseCheck()">Check Firebase Login</a></li> -->
-				        <li><a id="logOut" ng-click="logoutClicked()" ng-show="showLogoutButton">Logout</a></li>
+				        <!-- <li><a id="logOut" ng-click="logoutClicked()" ng-show="showLogoutButton">Logout</a></li> -->
+				        <li><a id="logOut" ng-click="logoutClicked()" ng-show="showLogoutButton"><img id="log-out-image" src="../images/blacklabel-40-log-out.jpg"></a></li>
 				      
-						<li><div ng-show="isLoggedIn" id="targetDiv"></div></li>
-						<li><div ng-show="isLoggedIn" id="userName"></div></li>
-						<li><a ng-show="isLoggedIn" ng-click="logOutLink()" id="logout">Logout</a></li>
+						<!-- <li><div ng-show="isLoggedIn" id="targetDiv"></div></li> -->
+						<!-- <li><div ng-show="isLoggedIn" id="userName"></div></li> -->
+						<!-- <li><a ng-show="isLoggedIn" ng-click="logOutLink()" id="logout">Logout</a> -->
+						<!-- <li><a ng-show="isLoggedIn" ng-click="logOutLink()" id="logout"><img src="../images/blacklabel-40-log-out.jpg"></a></li> -->
 				      </ul>
 				    </div>
 			    </div>
