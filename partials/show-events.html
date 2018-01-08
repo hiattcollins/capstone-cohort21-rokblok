@@ -47,8 +47,8 @@
 
 			<div ng-show="displayDataReady">
 
-				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy" ng-show="showLikes(item.data_id, showOnlyLikes)">  
-					
+				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy" ng-show="showLikes(item.data_id, showOnlyLikes)">
+
 					<div class="card large sticky-action">
     					<div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator" src="{{item.cover_pic}}">
@@ -60,7 +60,7 @@
 					    			<div class="col s6">{{item.start_time | date:'fullDate'}}</div>
 					    		</div>
 					    	</div>
-					    	
+
 					    <div class="row">
 						      <div class="col s4">
 							    	<ul>
@@ -80,7 +80,7 @@
 									<a class="save-btn waves-effect waves-light btn-flat red darken-1" ng-click="deleteEventFromFirebase(item.data_id)"  ng-hide="!item.data_id">Unsave</a>
 								</div>
 							</div>
-					
+
 					    </div>
 					    <div class="card-action">
 							<a href="{{item.event_link}}" target="_blank">Facebook Event Page</a>
