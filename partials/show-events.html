@@ -34,21 +34,16 @@
 		<div class="col s9">
 
 			<div ng-hide="displayDataReady">
-
 				<div id="tuning-up-label">
   					<img src="../images/redlabel-100-tuning-up.jpg">
   				</div>
-
 				<div class="progress">
       				<div class="indeterminate"></div>
   				</div>
-
 			</div>
 
 			<div ng-show="displayDataReady">
-
 				<div ng-repeat="item in allEvents | filter:searchText | orderBy:sortEventsBy" ng-show="showLikes(item.data_id, showOnlyLikes)">
-
 					<div class="card large sticky-action">
     					<div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator" src="{{item.cover_pic}}">
@@ -107,8 +102,6 @@
 						    </div>
 					    </div>
 					  </div>
-
-
 				</div>
 			</div>
 		</div>
