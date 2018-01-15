@@ -13,18 +13,18 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
             getSavedEvents(firebase_userId)
             .then((firebaseEvents) => {
 
-                console.log("firebaseEvents:", firebaseEvents); 
+                console.log("firebaseEvents:", firebaseEvents);
 
                 arrayOfIndividualEvents = firebaseEvents;
 
                 console.log("arrayOfIndividualEvents before add:", arrayOfIndividualEvents);
 
-                
+
                 let firebaseIndices = $.map(firebaseEvents, (element, index) => {
                             return element.event_id;
                 });
 
-                console.log("firebaseIndices", firebaseIndices); 
+                console.log("firebaseIndices", firebaseIndices);
 
                 $.each(arrayOfFacebookEvents, (index, item) => {
                         if (firebaseIndices.includes(item.event_id)) {
@@ -63,7 +63,7 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
 
     const getSavedEvents = function(firebase_userId){
         let events = [];
-        console.log("url is", `${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`); //   &equalTo="${firebase_userId}" 
+        console.log("url is", `${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`); //   &equalTo="${firebase_userId}"
         return $q((resolve, reject) => {
             $http.get(`${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`)
             .then((eventObject) => {
@@ -74,11 +74,6 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
                     eventCollection[key].data_id = key;
                     events.push(eventCollection[key]);
                 });
-
-                // arrayOfIndividualEvents = events;
-
-                // console.log("arrayOfIndividualEvents in getSavedEvents:", arrayOfIndividualEvents);
-
                 resolve(events);
             })
             .catch((error) => {
@@ -120,9 +115,6 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
             var likesLoader = function() {
                 console.log("likesLoader triggered");
 
-                // name,about,category,events.since(${cutoffDate})
-                // name,about,category,events.since(${cutoffDate}){end_time,name,place,start_time,id,description,cover}
-
                 ezfb.api('/me/likes', {after: cursor, fields: `name,about,category,events.since(${cutoffDate}){end_time,name,place,start_time,id,description,cover,ticket_uri}`}, function(callResults) {
                     console.log("here's *callResults* in likesLoader", callResults);
 
@@ -136,10 +128,6 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
                             });
 
                             console.log("likesArray:", likesArray);
-
-                            // parseEvents(likesArray);
-
-                            // facebookDataDone.isdone = true;
 
                             likesLoader();
 
@@ -160,12 +148,12 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
 
         // ****** Function to Parse Events from Facebook Likes and Create Event Objects ****** /
 
-        const parseEvents = function (fullLikesArray) { 
+        const parseEvents = function (fullLikesArray) {
             console.log("parseEvents triggered");
             console.log("fullLikesArray:", fullLikesArray);
 
             let onlyMusicWithEventsArray = [];
-            
+
             let eventObject = {
                         band_name: "",
                         cover_pic: "",
@@ -228,20 +216,15 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
 
                             if (valueEvents.place.location) {
                                 eventObject.street = valueEvents.place.location.street;
-                                eventObject.city = valueEvents.place.location.city;                      
+                                eventObject.city = valueEvents.place.location.city;
                                 eventObject.state = valueEvents.place.location.state;
                                 eventObject.country = valueEvents.place.location.country;
-                                eventObject.zip = valueEvents.place.location.zip;                         
+                                eventObject.zip = valueEvents.place.location.zip;
                             }
 
                         }
 
                         arrayOfFacebookEvents.push(eventObject);
-                        // .then((result) => {
-                        //     console.log("this is the .then at end of arrayOfFacebookEvents");
-                        //     console.log("arrayOfFacebookEvents", arrayOfFacebookEvents);
-                        //     facebookDataDone.isdone = true;
-                        // });
                     });
                 });
             };

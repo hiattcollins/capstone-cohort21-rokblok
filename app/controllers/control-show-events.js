@@ -1,6 +1,5 @@
 "use strict";
 
-
 console.log("control-show-events.js");
 
 app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location, $q, $http, eventFactory, userFactory, ezfb){
@@ -35,8 +34,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 		console.log("control-retrieve-events retrieveFirebaseId $scope.firebase_userId:", firebase_userId);
 	};
 
-
-
 	firebase.auth().onAuthStateChanged(function(user) {
 
 		console.log("firebase onAuthStateChanged triggered- user:", user);
@@ -54,8 +51,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 	  }
 	});
 
-
-
 	//******* Listener for Completion of Facebook Data *******//
 		let counter = 1;
 
@@ -64,7 +59,7 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 		console.log("eventFactory.facebookDataDone", eventFactory.facebookDataDone);
 		console.log("counter:", counter);
 		counter++;
-		
+
 			if (eventFactory.facebookDataDone.isdone) {
 				$q.when(eventFactory.getFacebookEventsArray())
 				.then((results) => {
@@ -83,7 +78,7 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 
 
 	// ****** Retrieve Firebase User Id on Load ****** //
-	// retrieveFirebaseId(); 
+	// retrieveFirebaseId();
 
 
 	// ****** ****** //
@@ -93,13 +88,8 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 
 	$scope.getEventsFromFacebook = function () {
 		// console.log("eventFactory.facebookDataDone:", eventFactory.facebookDataDone);
-		// retrieveFirebaseId();
 		eventFactory.loadFacebookEvents();
 	};
-
-
-
-
 
 
 
@@ -107,13 +97,10 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 	$scope.getAllEvents = function() {
 		// console.log("getAllEvents triggered, $scope.allEvents:", $scope.allEvents);
 		let events = eventFactory.getIndividualEventsArray();
-		// userFactory.getIndividualEventsArray();
 		console.log("events", events);
 		$scope.allEvents = events;
 		console.log("$scope.allEvents after call:", $scope.allEvents);
 	};
-
-	// $scope.getAllEvents();
 
 	$scope.saveEventToFirebase = function(eventId) {
 		console.log("eventId in saveEventToFirebase", eventId);
@@ -152,18 +139,7 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 			$scope.allEvents = results;
 			$scope.displayDataReady = true;
 		});
-
-
-		// eventFactory.getSavedEvents(firebase_userId)
-		// .then((eventResults) => {
-		// 	console.log("eventResults:", eventResults);
-		// 	$scope.getAllEvents();
-		// });
 	};
-
-
-
-
 
 
 });
