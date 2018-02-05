@@ -6,9 +6,9 @@ app.controller("navbarCtrl", function($rootScope, $scope, $window, $location, $q
 
     console.log("navbarCtrl activated");
 
-    $scope.loginClicked = function () {
-        userFactory.doLogIn();
-    };
+    // $scope.loginClicked = function () {
+    //     userFactory.doLogIn();
+    // };
 
     $scope.logoutClicked = function () {
         userFactory.doLogout();
@@ -30,5 +30,5 @@ app.controller("navbarCtrl", function($rootScope, $scope, $window, $location, $q
         console.log("firebaseUserinfo.uid:", firebaseUserinfo.uid);
     };
 
-   
+
 });

@@ -6,6 +6,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
 
     let currentUser = null;
+    let facebookToken = null;
 
     const isAuthenticated = function (){
         console.log("userFactory: isAuthenticated");
@@ -13,6 +14,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
             ezfb.getLoginStatus(function (res) {
                 console.log("isAuthenticated res:", res);
                 console.log("isAuthenticated res.authResponse:", res.authResponse);
+                // console.log("isAuthenticated res.authResponse - accessToken:", res.authResponse.accessToken);
 
             if (res.authResponse){
                     resolve(true);
@@ -27,20 +29,116 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
     let loginReturn = {};
 
-    const doLogIn = function () {
+    const checkFacebookLogin = function () {
+      return new Promise ( (resolve, reject) => {
+        ezfb.getLoginStatus(function (res) {
+                console.log("isAuthenticated res:", res);
+                console.log("isAuthenticated res.authResponse:", res.authResponse);
+                // console.log("isAuthenticated res.authResponse - accessToken:", res.authResponse.accessToken);
 
-        ezfb.login(function (res) {
-
-        console.log("res login", res);
-
-        loginReturn = res;
-
-        firebase.auth().signInWithRedirect(provider);
-
-        $window.location.href = "#!/";
-
-        }, {scope: 'user_likes'});
+            if (res.authResponse){
+                    resolve(true);
+                }else {
+                    $window.location.href = "#!/login";
+                    resolve(false);
+                }
+        });
+      });
     };
+
+    const checkFirebaseLogin = function () {
+      return new Promise ( (resolve, reject) => {
+
+      });
+    };
+
+      const facebookLogin = function () {
+        let facebookAuthResponse = null;
+        return new Promise ( (resolve, reject) => {
+          ezfb.login(function (res) {
+            console.log("facebook res:", res);
+            facebookAuthResponse = res.authResponse;
+          }, {scope: 'user_likes'})
+          .then(function (something) {
+            if (facebookAuthResponse) {
+              console.log("facebookAuthResponse:", facebookAuthResponse);
+              resolve(facebookAuthResponse);
+            } else {
+              var error = new Error("Error with facebook login.");
+              reject(error);
+            }
+          });
+        });
+      };
+
+     const firebaseLogin = function (facebookAuthResponse) {
+        return new Promise ( (resolve, reject) => {
+          console.log("facebookAuthResponse in firebaseLogin:", facebookAuthResponse);
+          let signinToken = firebase.auth.FacebookAuthProvider.credential(facebookAuthResponse.accessToken);
+          firebase.auth().signInWithCredential(signinToken)
+          .then(function (firebaseSigninResult) {
+            console.log("firebaseSigninResult:", firebaseSigninResult);
+            if (firebaseSigninResult) {
+              resolve(firebaseSigninResult);
+            } else {
+              var error = new Error("Error with firebase login.");
+              reject(error);
+            }
+          });
+        });
+      };
+
+    const doLogIn = function () {
+      return new Promise ( (resolve, reject) => {
+        facebookLogin()
+        .then(firebaseLogin)
+        .then(function (something) {
+          console.log("something:", something);
+          $window.location.href = "#!/";
+          resolve(something);
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+      });
+    };
+
+
+
+    // const doLogIn = function () {
+
+    //     ezfb.login(function (res) {
+
+    //     console.log("res login", res);
+
+    //     // loginReturn = res;
+
+
+    //     if (res.authResponse) {
+
+    //       facebookToken = res.authResponse.accessToken;
+    //       console.log("in doLogIn -> facebookToken:", facebookToken);
+
+    //       let signinToken = firebase.auth.FacebookAuthProvider.credential(facebookToken);
+
+    //       firebase.auth().signInWithCredential(signinToken);
+
+    //       firebase.auth().onAuthStateChanged(function(user) {
+    //       console.log("doLogIn firebase user:", user);
+    //       });
+
+    //       // firebase.auth().signInWithRedirect(provider);
+
+    //       $window.location.href = "#!/";
+
+    //     }
+
+
+    //     }, {scope: 'user_likes'});
+    // };
+
+
+
 
     const doLogout = function () {
         ezfb.logout(function (res) {
