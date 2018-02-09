@@ -34,7 +34,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
       });
     };
 
-    let loginReturn = {};
+    // let loginReturn = {};
 
     const checkFacebookLogin = function () {
       return new Promise ( (resolve, reject) => {
@@ -112,12 +112,12 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
         if (res) {
           ezfb.logout(function (logoutRes) {
           // console.log("doLogout logoutRes:", logoutRes);
+          console.log("Logged out of facebook");
           });
         } else {
           console.log("Already logged out of facebook");
         }
       });
-
 
       firebase.auth().signOut().then(function() {
         console.log("Signed Out from Firebase");
@@ -183,7 +183,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
     // console.log("provider:", provider);
 
-    let firebase_user = null;
+    // let firebase_user = null;
 
     // const getFirebaseUser = function () {
     //     console.log("getFirebaseUser triggered - no remaining functions");

@@ -6,7 +6,7 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 
   $scope.displayDataReady = false;
 
-  $rootScope.showLogoutButton = false;
+  $rootScope.showLogoutButton = true;
 
   $scope.sortEventsBy = 'start_time';
 

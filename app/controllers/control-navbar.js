@@ -10,9 +10,12 @@ app.controller("navbarCtrl", function($rootScope, $scope, $window, $location, $q
     //     userFactory.doLogIn();
     // };
 
+    $rootScope.showLogoutButton = false;
+
     $scope.logoutClicked = function () {
-        userFactory.doLogout();
         $rootScope.showLogoutButton = false;
+        userFactory.doLogout();
+
     };
 
     // firebase.auth().onAuthStateChanged(function(user) {
