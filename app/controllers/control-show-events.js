@@ -142,5 +142,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
     });
   };
 
+  eventFactory.loadFacebookEvents();
 
 });
