@@ -8,7 +8,6 @@ app.controller("userCtrl", function($scope, $window, $location, $q, $http, userF
         .then(function (resultFromLogin) {
           console.log("resultFromLogin:", resultFromLogin);
 
-          // eventFactory.loadFacebookEvents();
         });
     };
 });
