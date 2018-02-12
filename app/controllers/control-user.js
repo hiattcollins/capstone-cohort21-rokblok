@@ -2,9 +2,14 @@
 
 console.log("control-user.js");
 
-app.controller("userCtrl", function($scope, $window, $location, $q, $http, userFactory, ezfb){
+app.controller("userCtrl", function($scope, $window, $location, $q, $http, userFactory, eventFactory, ezfb){
     $scope.loginClicked = function () {
-        userFactory.doLogIn();
+        userFactory.doLogIn()
+        .then(function (resultFromLogin) {
+          console.log("resultFromLogin:", resultFromLogin);
+
+          // eventFactory.loadFacebookEvents();
+        });
     };
 });
 
