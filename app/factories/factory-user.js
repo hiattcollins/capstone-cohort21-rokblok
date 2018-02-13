@@ -105,7 +105,6 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
         console.log("in doLogout - res from checkFacebookLogin:", res);
         if (res) {
           ezfb.logout(function (logoutRes) {
-          // console.log("doLogout logoutRes:", logoutRes);
           console.log("Logged out of facebook");
           });
         } else {
@@ -115,8 +114,6 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
       firebase.auth().signOut().then(function() {
         console.log("Signed Out from Firebase");
-          // firebase_user = null;
-          // console.log("firebase_user after logout:", firebase_user);
       }, function(error) {
           console.error("Sign Out Error", error);
       });
@@ -127,6 +124,5 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
     return { isAuthenticated, doLogIn, doLogout };
 
-    // return { isAuthenticated, checkURL, authCode, getAuthCode, getAccessToken, getMyToken, logOut, factoryCheckStatus, getLoginReturn, doLogIn, doLogout, getFirebaseUser };
 });
 

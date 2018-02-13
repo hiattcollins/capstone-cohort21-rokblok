@@ -34,23 +34,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
     console.log("control-retrieve-events retrieveFirebaseId $scope.firebase_userId:", firebase_userId);
   };
 
-  // ***** un-comment to restart on authstatechanged
-  // firebase.auth().onAuthStateChanged(function(user) {
-
-  //  console.log("firebase onAuthStateChanged triggered- user:", user);
-
-  //   if (user) {
-  //     console.log("User is signed in.");
-  //     firebase_userId = user.uid;
-
-  //     console.log("firebase_userId:", firebase_userId);
-
-  //     $rootScope.showLogoutButton = true;
-
-  //     eventFactory.loadFacebookEvents();
-
-  //   }
-  // });
 
   //******* Listener for Completion of Facebook Data *******//
     let counter = 1;
@@ -74,12 +57,6 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
   }, true);
 
   //****** End of Facebook Data Listener *******//
-
-
-
-
-  // ****** Retrieve Firebase User Id on Load ****** //
-  // retrieveFirebaseId();
 
 
   // ****** ****** //
