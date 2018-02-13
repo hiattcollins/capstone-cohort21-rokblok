@@ -4,11 +4,6 @@
 app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
 
-
-    // let currentUser = null;
-    // let facebookToken = null;
-
-
     const isAuthenticated = function (){
       console.log("userFactory: isAuthenticated");
       return new Promise ( (resolve, reject) => {
@@ -34,7 +29,6 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
       });
     };
 
-    // let loginReturn = {};
 
     const checkFacebookLogin = function () {
       return new Promise ( (resolve, reject) => {
@@ -129,65 +123,6 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
       $window.location.href = "#!/login";
     };
-
-
-    // const factoryCheckStatus = function() {
-
-    //     ezfb.getLoginStatus(function (res) {
-
-    //     console.log("res in factoryCheckStatus", res);
-    //     loginReturn = res;
-
-    //     console.log("loginReturn in factory:", loginReturn);
-
-    //     });
-
-    // };
-
-    // const getLoginReturn = function() {
-    //     console.log("loginReturn in getLoginReturn:", loginReturn);
-    //     return loginReturn;
-    // };
-
-
-    // var authCode;
-    // var token;
-
-    // const checkURL = function() {
-    //     let currentURL = $window.location.href;
-    //     let isCodePresent = currentURL.indexOf("code");
-    //     return isCodePresent;
-    // };
-
-    // const getAuthCode = function() {
-    //     let currentURL = $window.location.href;
-    //     authCode = currentURL.slice(32, 48);
-    //     console.log('Temporary Auth Code:', authCode);
-    //     // return authCode;
-    // };
-
-    // const getAccessToken = function() {
-    // };
-
-    // const getMyToken = function() {
-    //     return token;
-    // // };
-
-    // const logOut = function () {
-    //     console.log("logout clicked");
-    //     authCode = "";
-    //     token = "";
-    // };
-
-    // var provider = new firebase.auth.FacebookAuthProvider();
-
-    // console.log("provider:", provider);
-
-    // let firebase_user = null;
-
-    // const getFirebaseUser = function () {
-    //     console.log("getFirebaseUser triggered - no remaining functions");
-    // };
 
 
     return { isAuthenticated, doLogIn, doLogout };
