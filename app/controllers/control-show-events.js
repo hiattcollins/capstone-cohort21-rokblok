@@ -26,13 +26,13 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 
   //******* Function to Retrieve Firebase User Id *******//
 
-  let firebase_userId = "";
+  // let firebase_userId = "";
 
-  const retrieveFirebaseId = function() {
-    let firebase_userInfo = userFactory.getFirebaseUser();
-    firebase_userId = firebase_userInfo.uid;
-    console.log("control-retrieve-events retrieveFirebaseId $scope.firebase_userId:", firebase_userId);
-  };
+  // const retrieveFirebaseId = function() {
+  //   let firebase_userInfo = userFactory.getFirebaseUser();
+  //   firebase_userId = firebase_userInfo.uid;
+  //   console.log("control-retrieve-events retrieveFirebaseId $scope.firebase_userId:", firebase_userId);
+  // };
 
 
   //******* Listener for Completion of Facebook Data *******//
@@ -91,8 +91,8 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
 
     let eventsToSearch = eventFactory.getIndividualEventsArray();
     let foundEvent = eventsToSearch.find(isCorrectObject);
-    foundEvent.user_id = firebase_userId;
-
+    // foundEvent.user_id = firebase_userId;
+    // console.log("saveEventToFirebase firebase_userId:", firebase_userId);
     console.log("foundEvent:", foundEvent);
 
     eventFactory.saveEvent(foundEvent)
@@ -111,7 +111,8 @@ app.controller("eventShowCtrl", function($rootScope, $scope, $window, $location,
   };
 
   $scope.loadAndDisplayEvents = function() {
-    eventFactory.compileAllEvents(firebase_userId)
+    // console.log("loadAndDisplayEvents firebase_userId", firebase_userId);
+    eventFactory.compileAllEvents()
     .then((results) => {
       console.log("loadAndDisplayEvents results:", results);
       $scope.allEvents = results;
