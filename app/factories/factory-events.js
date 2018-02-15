@@ -8,10 +8,11 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
     let facebookDataDone = {isdone: false};
 
 
-    const compileAllEvents = function (firebase_userId) {
-        return $q((resolve, reject) => {
-            getSavedEvents(firebase_userId)
-            .then((firebaseEvents) => {
+  const compileAllEvents = function () {
+    // console.log("compileAllEvents firebase_userId:", firebase_userId);
+    return $q((resolve, reject) => {
+      getSavedEvents()
+      .then((firebaseEvents) => {
 
                 console.log("firebaseEvents:", firebaseEvents);
 
@@ -61,11 +62,12 @@ app.factory("eventFactory", function ($q, $http, $window, FirebaseCreds, ezfb) {
     };
 
 
-    const getSavedEvents = function(firebase_userId){
+    const getSavedEvents = function(){
         let events = [];
-        console.log("url is", `${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`); //   &equalTo="${firebase_userId}"
+        // console.log("getSavedEvents firebase_userId:", firebase_userId);
+        // console.log("url is", `${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`); //   &equalTo="${firebase_userId}"
         return $q((resolve, reject) => {
-            $http.get(`${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"&equalTo="${firebase_userId}"`)
+            $http.get(`${FirebaseCreds.databaseURL}/events.json?orderBy="user_id"`)
             .then((eventObject) => {
                 console.log("eventObject:", eventObject);
                 let eventCollection = eventObject.data;

@@ -6,7 +6,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
     const isAuthenticated = function (){
       console.log("userFactory: isAuthenticated");
-      return new Promise ( (resolve, reject) => {
+      return $q( (resolve, reject) => {
         let facebookResponse = null;
         let firebaseResponse = null;
         checkFacebookLogin()
@@ -31,7 +31,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
 
     const checkFacebookLogin = function () {
-      return new Promise ( (resolve, reject) => {
+      return $q( (resolve, reject) => {
         ezfb.getLoginStatus(function (res) {
           console.log("checkFacebookLogin -> res.authResponse:", res.authResponse);
           resolve(res.authResponse);
@@ -40,7 +40,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
     };
 
     const checkFirebaseLogin = function () {
-      return new Promise ( (resolve, reject) => {
+      return $q( (resolve, reject) => {
         let firebaseResponse = firebase.auth().currentUser;
         console.log("checkFirebaseLogin -> firebaseResponse:", firebaseResponse);
         resolve(firebaseResponse);
@@ -49,7 +49,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
 
       const facebookLogin = function () {
         let facebookAuthResponse = null;
-        return new Promise ( (resolve, reject) => {
+        return $q( (resolve, reject) => {
           ezfb.login(function (res) {
             console.log("facebook res:", res);
             facebookAuthResponse = res.authResponse;
@@ -67,7 +67,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
       };
 
      const firebaseLogin = function (facebookAuthResponse) {
-        return new Promise ( (resolve, reject) => {
+        return $q( (resolve, reject) => {
           console.log("facebookAuthResponse in firebaseLogin:", facebookAuthResponse);
           let signinToken = firebase.auth.FacebookAuthProvider.credential(facebookAuthResponse.accessToken);
           firebase.auth().signInWithCredential(signinToken)
@@ -84,7 +84,7 @@ app.factory("userFactory", function ($q, $http, $window, ezfb) {
       };
 
     const doLogIn = function () {
-      return new Promise ( (resolve, reject) => {
+      return $q( (resolve, reject) => {
         facebookLogin()
         .then(firebaseLogin)
         .then(function (something) {
